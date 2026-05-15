@@ -1,39 +1,27 @@
 "use client";
 
-import {
-  useEffect,
-  useState
-} from "react";
+import { useEffect, useState } from "react";
 
-import { supabase }
-from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
 
-import PurchaseModal
-from "@/components/home/PurchaseModal";
+import PurchaseModal from "@/components/home/PurchaseModal";
 
 import "@/styles/PurchaseSection.css";
 
 interface ActiveRaffle {
-
   precio: number;
-
   cantidad_minima: number;
-
   cantidad_maxima: number;
-
   paquetes: number[];
 }
 
 export default function PurchaseSection() {
 
-  const [price, setPrice] =
-    useState(0);
+  const [price, setPrice] = useState(0);
 
-  const [minAmount, setMinAmount] =
-    useState(1);
+  const [minAmount, setMinAmount] = useState(1);
 
-  const [maxAmount, setMaxAmount] =
-    useState(100);
+  const [maxAmount, setMaxAmount] = useState(100);
 
   const [packages, setPackages] =
     useState<number[]>([]);
@@ -64,9 +52,7 @@ export default function PurchaseSection() {
           .maybeSingle();
 
       if (error) {
-
         console.error(error);
-
         return;
       }
 
@@ -77,21 +63,17 @@ export default function PurchaseSection() {
       );
 
       setMinAmount(
-        Number(
-          data.cantidad_minima || 1
-        )
+        Number(data.cantidad_minima || 1)
       );
 
       setMaxAmount(
-        Number(
-          data.cantidad_maxima || 100
-        )
+        Number(data.cantidad_maxima || 100)
       );
 
       setPackages(
         Array.isArray(data.paquetes)
           ? data.paquetes
-          : [5,10,20,50]
+          : [5, 10, 20, 50]
       );
     };
 
@@ -112,9 +94,7 @@ export default function PurchaseSection() {
 
     if (value > maxAmount) {
 
-      setSelectedAmount(
-        maxAmount
-      );
+      setSelectedAmount(maxAmount);
 
       return;
     }
@@ -126,9 +106,7 @@ export default function PurchaseSection() {
 
   const handleOpenModal = () => {
 
-    if (
-      selectedAmount < minAmount
-    ) {
+    if (selectedAmount < minAmount) {
 
       alert(
         `La compra mínima es de ${minAmount} números`
@@ -149,16 +127,12 @@ export default function PurchaseSection() {
         {/* TITLE */}
 
         <h2 className="purchase-title">
-
           🎟️ Compra tus números
-
         </h2>
 
         <p className="purchase-description">
-
           Selecciona un paquete
           o elige tu cantidad.
-
         </p>
 
         {/* INFO */}
@@ -166,23 +140,19 @@ export default function PurchaseSection() {
         <div className="purchase-info">
 
           <span>
-
             🔥 Compra mínima:
             {" "}
             <strong>
               {minAmount}
             </strong>
-
           </span>
 
           <span>
-
             🎟️ Máximo:
             {" "}
             <strong>
               {maxAmount}
             </strong>
-
           </span>
 
         </div>
@@ -221,23 +191,17 @@ export default function PurchaseSection() {
             >
 
               <span>
-
                 {amount}
-
               </span>
 
               <small>
-
                 números
-
               </small>
 
               <strong>
-
                 $
                 {(amount * price)
                   .toLocaleString("es-CO")}
-
               </strong>
 
             </button>
@@ -251,9 +215,7 @@ export default function PurchaseSection() {
         <div className="purchase-custom">
 
           <label>
-
             Cantidad personalizada
-
           </label>
 
           <input
@@ -284,16 +246,12 @@ export default function PurchaseSection() {
           <div>
 
             <span>
-
               🎟️ {selectedAmount} números
-
             </span>
 
             <strong>
-
               $
               {total.toLocaleString("es-CO")}
-
             </strong>
 
           </div>
@@ -301,9 +259,7 @@ export default function PurchaseSection() {
           <button
             onClick={handleOpenModal}
           >
-
             Ir a pagar
-
           </button>
 
         </div>
