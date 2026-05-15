@@ -25,27 +25,6 @@ export default function TitleImage() {
       src: "/5millones1.jpg",
       alt: "Premio 1"
     },
-
-    {
-      src: "/5millones2.jpg",
-      alt: "Premio 2"
-    },
-
-    {
-      src: "/5millones3.jpg",
-      alt: "Premio 3"
-    },
-
-    {
-      src: "/5millones4.jpg",
-      alt: "Premio 4"
-    },
-
-    {
-      src: "/5millones5.jpg",
-      alt: "Premio 5"
-    }
-
   ];
 
   return (

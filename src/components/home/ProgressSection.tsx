@@ -57,28 +57,29 @@ export default function ProgressSection() {
 
 }, []);
    
-  return (
-    <section className="progress-section">
+ return (
 
-      <div className="progress-bar">
+  <section className="progress-section">
 
-  <div
-    className="progress-fill"
-    style={{
-      width: `${progreso}%`,
-    }}
-  />
+    <Leyenda progreso={progreso} />
+    
+    <div className="progress-bar">
 
-  <div className="progress-number">
-    {progreso}%
-  </div>
+      <div
+        className="progress-fill"
+        style={{
+          width: `${progreso}%`,
+        }}
+      />
 
-</div>
+      <div className="progress-number">
+        {progreso}%
+      </div>
 
-      <Leyenda progreso={progreso} />
+    </div>
 
-    </section>
-  );
+  </section>
+);
 }
 
 

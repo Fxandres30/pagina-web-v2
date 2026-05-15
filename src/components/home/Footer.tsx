@@ -54,9 +54,9 @@ export default function Footer() {
 
       <p className="contact-info">
 
-        <a href="mailto:ventas@inversionesefaat.com">
+        <a href="mailto:info@efaat.com">
 
-          𝘷𝘦𝘯𝘵𝘢𝘴@𝘪𝘯𝘷𝘦𝘳𝘴𝘪𝘰𝘯𝘦𝘴𝘦𝘧𝘢𝘢𝘵.𝘤𝘰𝘮
+          info@efaat.com
 
         </a>
 
