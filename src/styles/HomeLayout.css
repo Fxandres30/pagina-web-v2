@@ -1,0 +1,79 @@
+/* LAYOUT */
+
+.home-layout {
+
+  width: 100%;
+
+  max-width: 1250px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 400px;
+
+  gap: 28px;
+
+  align-items: start;
+
+  padding: 18px 14px;
+}
+
+/* LEFT */
+
+.home-left {
+
+  min-width: 0;
+}
+
+/* RIGHT */
+
+.home-right {
+
+  position: sticky;
+
+  top: 18px;
+}
+
+/* SEGUNDO LAYOUT */
+
+.second-layout {
+
+  margin-top: 10px;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+  .home-layout {
+
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+
+    padding: 10px 10px;
+  }
+
+  .home-right {
+
+    position: relative;
+
+    top: unset;
+  }
+
+  /* HERO ARRIBA */
+
+  .home-layout:first-of-type .home-right {
+
+    order: -1;
+  }
+
+  /* VERIFY ARRIBA */
+
+  .second-layout .home-right {
+
+    order: -1;
+  }
+}

@@ -1,0 +1,429 @@
+/* HERO */
+
+.hero {
+
+  position: relative;
+
+  max-width: 360px;
+
+  margin: 18px auto;
+
+  padding: 22px 18px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f5f7ff,
+      #eef2ff
+    );
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.06);
+
+  overflow: hidden;
+}
+
+/* LOADING */
+
+.hero-loading {
+
+  text-align: center;
+
+  padding: 30px 16px;
+
+  font-size: 15px;
+
+  font-weight: 800;
+}
+
+/* BADGE */
+
+.hero-badge {
+
+  position: absolute;
+
+  top: 14px;
+  right: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00c853,
+      #00e676
+    );
+
+  color: white;
+
+  padding: 5px 12px;
+
+  border-radius: 30px;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.4px;
+
+  box-shadow:
+    0 4px 10px rgba(0,200,83,0.22);
+}
+
+/* TITLE */
+
+.hero-title {
+
+  text-align: center;
+
+  font-size: 24px;
+
+  font-weight: 900;
+
+  line-height: 1.1;
+
+  margin-bottom: 20px;
+
+  color: #111;
+}
+
+/* PREMIO */
+
+.hero-principal {
+
+  text-align: center;
+
+  margin-bottom: 18px;
+}
+
+.hero-principal-label {
+
+  display: block;
+
+  font-size: 12px;
+
+  color: #666;
+
+  margin-bottom: 6px;
+
+  font-weight: 600;
+}
+
+.hero-principal-value {
+
+  font-size: 34px;
+
+  font-weight: 900;
+
+  line-height: 1;
+
+  color: #00a152;
+
+  text-shadow:
+    0 4px 10px rgba(0,161,82,0.12);
+}
+
+/* STATS */
+
+.hero-stats {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 10px;
+
+  margin-bottom: 16px;
+}
+
+.hero-stat-card {
+
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 14px 10px;
+
+  text-align: center;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.04);
+
+  transition: 0.2s ease;
+}
+
+.hero-stat-card:hover {
+
+  transform: translateY(-2px);
+}
+
+.hero-stat-card span {
+
+  display: block;
+
+  font-size: 10px;
+
+  color: #666;
+
+  margin-bottom: 6px;
+
+  font-weight: 700;
+}
+
+.hero-stat-card strong {
+
+  font-size: 16px;
+
+  font-weight: 900;
+
+  color: #111;
+}
+
+/* FECHA */
+
+.hero-date {
+
+  text-align: center;
+
+  margin-bottom: 18px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  color: #444;
+}
+
+/* BUTTON */
+
+.hero-button {
+
+  width: 100%;
+
+  border: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1976d2,
+      #42a5f5
+    );
+
+  color: white;
+
+  padding: 13px;
+
+  border-radius: 14px;
+
+  font-size: 14px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  box-shadow:
+    0 8px 18px rgba(25,118,210,0.18);
+}
+
+.hero-button:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 20px rgba(25,118,210,0.25);
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .hero {
+
+    max-width: 340px;
+
+    padding: 20px 16px;
+
+    border-radius: 22px;
+  }
+
+  .hero-title {
+
+    font-size: 22px;
+  }
+
+  .hero-principal-value {
+
+    font-size: 30px;
+  }
+
+  .hero-stat-card strong {
+
+    font-size: 15px;
+  }
+
+  .hero-button {
+
+    padding: 12px;
+
+    font-size: 13px;
+  }
+}
+
+.hero-prizes {
+
+  margin-top: 28px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(150px, 1fr)
+    );
+
+  gap: 14px;
+}
+
+.hero-prize-card {
+
+  padding: 16px;
+
+  border-radius: 18px;
+
+  background: white;
+
+  box-shadow:
+    0 6px 16px rgba(0,0,0,0.06);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.hero-prize-card span {
+
+  font-size: 14px;
+
+  color: #52525b;
+
+  font-weight: 600;
+}
+
+.hero-prize-card strong {
+
+  font-size: 22px;
+
+  font-weight: 800;
+
+  color: #111827;
+}
+
+/* COLORES */
+
+.exacto {
+
+  border-left:
+    5px solid #16a34a;
+}
+
+.invertido {
+
+  border-left:
+    5px solid #9333ea;
+}
+
+.aproximado {
+
+  border-left:
+    5px solid #2563eb;
+}
+
+.bendecido {
+
+  border-left:
+    5px solid #eab308;
+}
+
+/* BENDECIDOS */
+
+.hero-blessed {
+
+  margin-top: 24px;
+
+  text-align: center;
+}
+
+.hero-blessed span {
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  color: #111827;
+}
+
+.hero-blessed-list {
+
+  margin-top: 12px;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+}
+
+.hero-blessed-number {
+
+  width: 70px;
+
+  height: 70px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fde047,
+      #eab308
+    );
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 26px;
+
+  font-weight: 800;
+
+  color: #111827;
+
+  box-shadow:
+    0 6px 18px rgba(234,179,8,0.35);
+
+  animation:
+    glow 2s infinite alternate;
+}
+
+@keyframes glow {
+
+  from {
+
+    transform: scale(1);
+  }
+
+  to {
+
+    transform: scale(1.06);
+  }
+
+}

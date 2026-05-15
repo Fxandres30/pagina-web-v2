@@ -1,0 +1,195 @@
+/* CONTENEDOR GENERAL */
+
+.premio-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 1200px; /* 🔥 Limita el ancho pero permite que se adapte */
+  margin: 0 auto 3px auto;
+  padding: 0 16px; /* 🧱 Espacio lateral en móviles */
+  box-sizing: border-box; /* ✅ Asegura que padding no rompa el layout */
+}
+
+/* TEXTOS */
+
+.subtitulo {
+  margin-bottom: 20px;
+  max-width: 900px; 
+  text-align: center;
+  font-size: 13px;      /* 🔼 Tamaño de fuente */
+}
+
+
+.subtitulo h2 {
+
+  font-size: 20px;
+
+  font-weight: 900;
+
+  margin-bottom: 12px;
+
+  color: #111;
+}
+
+.subtitulo p {
+  margin-top: 25px;     /* 🔼 Separación hacia arriba */
+  margin-bottom: 10px;  /* (opcional) separación hacia abajo si querés */
+  text-align: center;
+  max-width: 1000px; 
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;      /* 🔼 Tamaño de fuente */
+}
+
+.subtitulo strong {
+
+  font-weight: 900;
+}
+
+/* TEXTO FINAL */
+
+.subtitulo-final {
+
+  margin-top: 14px;
+
+  font-size: 20px;
+
+  font-weight: 900;
+
+  color: #111;
+}
+
+/* WRAPPER */
+
+.premio-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 700px;
+  width: 95%;
+}
+
+/* SLIDE */
+
+.carousel .slide {
+
+  background: transparent;
+}
+
+/* IMAGEN */
+
+.premio-image {
+  border-radius: 10px;
+  max-width: 300px;
+  box-shadow: 
+    -20px 0px 7px -15px rgba(0, 0, 0, 0.4),  /* Sombra a la izquierda */
+     20px 0px 7px -15px rgba(0, 0, 0, 0.4);  /* Sombra a la derecha */
+}
+
+/* CARRUSEL */
+
+.carousel {
+
+  border-radius: 22px;
+
+  overflow: hidden;
+}
+
+/* FLECHAS */
+
+/* Cambia el tamaño, color y estilo de las flechas */
+.carousel .control-arrow {
+  width: 40px;
+  height: 300px;               /* Centrado vertical */            /* Forma redonda */
+
+}
+
+/* Icono dentro de la flecha */
+.carousel .control-arrow::before {
+  font-size: 20px;
+  color: white;
+}
+
+
+/* ICONOS FLECHAS */
+
+.carousel .control-prev.control-arrow:before {
+
+  border-right: 10px solid white;
+}
+
+.carousel .control-next.control-arrow:before {
+
+  border-left: 10px solid white;
+}
+
+/* DOTS */
+
+.carousel .control-dots {
+
+  bottom: 8px;
+}
+
+.carousel .control-dots .dot {
+
+  width: 9px;
+
+  height: 9px;
+
+  opacity: 0.45;
+
+  box-shadow: none;
+
+  transition: 0.2s ease;
+}
+
+.carousel .control-dots .dot.selected {
+
+  opacity: 1;
+
+  transform: scale(1.15);
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .premio-container {
+
+    padding: 8px 10px 18px;
+  }
+
+  .subtitulo h2 {
+
+    font-size: 20px;
+  }
+
+  .subtitulo p {
+
+    font-size: 12px;
+  }
+
+  .subtitulo-final {
+
+    font-size: 17px;
+  }
+
+  .premio-wrapper {
+
+    max-width: 320px;
+  }
+
+  .premio-image {
+
+    border-radius: 18px;
+  }
+
+  /* OCULTAR FLECHAS EN CELULAR */
+
+  .carousel .control-arrow {
+
+    display: none !important;
+  }
+}

@@ -1,0 +1,75 @@
+.footer {
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 5px 0;
+    width: 100%;   
+    margin-top: auto;
+    }
+    
+    .contact-info {
+        align-items: center;
+        margin-top: 10px;
+        font-size: 0.59rem;
+        gap: 0px;
+      }
+      
+    
+.contact-info a {
+    color: white;
+    text-decoration: none;
+    margin-top: 10px;
+}
+    
+.contact-info a:hover {
+    text-decoration: underline;
+}
+    
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espaciado uniforme entre íconos */
+    margin-top: 15px;
+}
+    
+.icon {
+    font-size: 23px;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    .icon {
+      font-size: 28px;
+    }
+  }
+    
+.icon:hover {
+    transform: scale(1.2);
+    color: #ffffff; /* Cambia el color al pasar el mouse */
+}
+    
+.whatsapp { color: #25D366; }
+.facebook { color: #4952cc; }
+.instagram { color: #E4405F; }
+.telegram { color: #189fd4; }
+
+.terminos-page {
+    font-size: 0.5rem;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    color: #cccccc;
+  }
+  
+.condiciones {
+    color: #1e3144;
+    font-size: 0.65rem;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0px;
+  }
+  
+  .condiciones:hover {
+    text-decoration: underline;
+  }
+  
+

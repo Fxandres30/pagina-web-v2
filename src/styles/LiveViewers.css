@@ -1,0 +1,53 @@
+.live-viewers {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff3cd,
+      #ffe082
+    );
+
+  color: #111;
+
+  padding: 9px 10px;
+
+  border-radius: 999px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,0.08);
+
+  animation:
+    pulseViewers 2s infinite;
+
+  margin-bottom: 18px;
+}
+
+@keyframes pulseViewers {
+
+  0% {
+
+    transform: scale(1);
+  }
+
+  50% {
+
+    transform: scale(1.03);
+  }
+
+  100% {
+
+    transform: scale(1);
+  }
+}

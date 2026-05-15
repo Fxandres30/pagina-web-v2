@@ -1,0 +1,376 @@
+/* MODAL */
+
+.purchase-modal-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0,0,0,0.55);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 9999;
+
+  padding: 16px;
+}
+
+.purchase-modal {
+
+  width: 100%;
+
+  max-width: 420px;
+
+  background: white;
+
+  border-radius: 28px;
+
+  padding: 26px;
+
+  position: relative;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.2);
+
+  animation:
+    modalShow 0.2s ease;
+}
+
+@keyframes modalShow {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(10px)
+      scale(0.96);
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* CLOSE */
+
+.purchase-close {
+
+  position: absolute;
+
+  top: 16px;
+  right: 16px;
+
+  border: none;
+
+  background: #f1f1f1;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  font-weight: 900;
+}
+
+/* TEXT */
+
+.purchase-modal h2 {
+
+  font-size: 26px;
+
+  font-weight: 900;
+
+  margin-bottom: 6px;
+}
+
+.purchase-modal p {
+
+  color: #666;
+
+  margin-bottom: 20px;
+}
+
+/* FORM */
+
+.purchase-form {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.purchase-form input {
+
+  padding: 15px;
+
+  border-radius: 16px;
+
+  border: 2px solid #ececec;
+
+  outline: none;
+
+  font-size: 14px;
+}
+
+/* SUMMARY */
+
+.purchase-summary {
+
+  margin-top: 22px;
+
+  padding: 18px;
+
+  border-radius: 18px;
+
+  background: #f8f8f8;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.purchase-summary strong {
+
+  font-size: 22px;
+
+  font-weight: 900;
+}
+
+/* PAY BUTTON */
+
+.purchase-pay-button {
+
+  width: 100%;
+
+  margin-top: 18px;
+
+  border: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00c853,
+      #00e676
+    );
+
+  color: white;
+
+  padding: 16px;
+
+  border-radius: 18px;
+
+  font-size: 15px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+/* METHODS */
+
+.payment-methods {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+.payment-method {
+
+  flex: 1;
+
+  border: none;
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  background: #f2f2f2;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.payment-method.active {
+
+  background: #1976d2;
+
+  color: white;
+}
+
+/* INFO */
+
+.payment-info {
+
+  margin-top: 14px;
+
+  background: #f7f7f7;
+
+  border-radius: 16px;
+
+  padding: 16px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.payment-info strong {
+
+  font-size: 15px;
+
+  color: #111;
+}
+
+.payment-info span {
+
+  font-size: 18px;
+
+  font-weight: 900;
+
+  color: #111;
+}
+
+.payment-info small {
+
+  color: #666;
+
+  font-size: 12px;
+}
+
+/* COPY BUTTON */
+
+.copy-button {
+
+  margin-top: 10px;
+
+  border: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      #111,
+      #333
+    );
+
+  color: white;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.copy-button:hover {
+
+  transform: translateY(-2px);
+}
+
+/* RECEIPT */
+
+.receipt-upload {
+
+  margin-top: 18px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.receipt-upload label {
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  color: #111;
+}
+
+.receipt-upload input {
+
+  background: #f5f5f5;
+
+  padding: 12px;
+
+  border-radius: 12px;
+}
+
+.receipt-upload small {
+
+  color: #00a152;
+
+  font-weight: 700;
+}
+
+.purchase-title,
+.payment-method,
+.copy-button,
+.purchase-pay-button,
+.payment-title,
+.summary-numbers,
+.receipt-upload label,
+.receipt-success,
+.input-group {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.input-group {
+
+  height: 58px;
+
+  padding: 0 16px;
+
+  border-radius: 16px;
+
+  border: 1px solid #dbe4ff;
+
+  background: #fff;
+}
+
+.input-group input {
+
+  flex: 1;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  font-size: 15px;
+}
