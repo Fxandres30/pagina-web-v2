@@ -26,45 +26,55 @@ export default function HomePage() {
 
       <Header />
 
-      {/* HERO + SLIDER */}
+      {/* HERO + FOTO */}
 
       <section className="home-layout">
 
         <div className="home-left">
 
-          <TitleImage />
+          <Hero />
 
         </div>
 
         <div className="home-right">
 
-          <Hero />
+          <TitleImage />
 
         </div>
 
       </section>
 
-      {/* BARRA */}
+      {/* BARRA + BENDECIDOS */}
 
-      <ProgressSection />
-
-      {/* COMPRA */}
-
-      <PurchaseSection />
-
-      {/* VERIFY + WINNING */}
-
-      <section className="home-layout second-layout">
+      <section className="home-layout">
 
         <div className="home-left">
 
-           <VerifySection />
+          <ProgressSection />
 
         </div>
 
         <div className="home-right">
 
-         <WinningSection />
+          <WinningSection />
+
+        </div>
+
+      </section>
+
+      {/* COMPRA + VERIFY */}
+
+      <section className="home-layout">
+
+        <div className="home-left">
+
+          <PurchaseSection />
+
+        </div>
+
+        <div className="home-right">
+
+          <VerifySection />
 
         </div>
 

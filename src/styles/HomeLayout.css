@@ -4,43 +4,30 @@
 
   width: 100%;
 
-  max-width: 1250px;
+  max-width: 1150px;
 
   margin: auto;
 
   display: grid;
 
   grid-template-columns:
-    1fr 400px;
+    1fr 1fr;
 
-  gap: 28px;
+  gap: 22px;
 
   align-items: start;
 
-  padding: 18px 14px;
+  padding: 14px;
 }
 
-/* LEFT */
+/* COLUMNS */
 
-.home-left {
-
-  min-width: 0;
-}
-
-/* RIGHT */
-
+.home-left,
 .home-right {
 
-  position: sticky;
+  min-width: 0;
 
-  top: 18px;
-}
-
-/* SEGUNDO LAYOUT */
-
-.second-layout {
-
-  margin-top: 10px;
+  width: 100%;
 }
 
 /* MOBILE */
@@ -53,27 +40,12 @@
 
     gap: 14px;
 
-    padding: 10px 10px;
+    padding: 10px;
   }
 
+  .home-left,
   .home-right {
 
-    position: relative;
-
-    top: unset;
-  }
-
-  /* HERO ARRIBA */
-
-  .home-layout:first-of-type .home-right {
-
-    order: -1;
-  }
-
-  /* VERIFY ARRIBA */
-
-  .second-layout .home-right {
-
-    order: -1;
+    width: 100%;
   }
 }
