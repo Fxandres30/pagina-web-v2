@@ -1,75 +1,208 @@
 .footer {
-    background-color: #000000;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    padding: 5px 0;
-    width: 100%;   
-    margin-top: auto;
-    }
-    
-    .contact-info {
-        align-items: center;
-        margin-top: 10px;
-        font-size: 0.59rem;
-        gap: 0px;
-      }
-      
-    
-.contact-info a {
-    color: white;
-    text-decoration: none;
-    margin-top: 10px;
+
+  width: 100%;
+
+  background: #000;
+
+  padding: 28px 20px 34px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 18px;
+
+  margin-top: 40px;
+
+  position: relative;
+
+  overflow: hidden;
 }
-    
-.contact-info a:hover {
-    text-decoration: underline;
+
+/* BRAND */
+
+.footer-brand {
+
+  text-align: center;
+
+  max-width: 420px;
 }
-    
+
+.footer-brand h2 {
+
+  color: white;
+
+  font-size: 28px;
+
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 8px;
+}
+
+.footer-brand p {
+
+  color: #b8b8b8;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+/* SOCIAL */
+
 .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 15px; /* Espaciado uniforme entre íconos */
-    margin-top: 15px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
 }
-    
+
 .icon {
-    font-size: 23px;
-    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+
+  width: 50px;
+
+  height: 50px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 24px;
+
+  transition: 0.25s ease;
+
+  text-decoration: none;
 }
 
-@media (min-width: 768px) {
-    .icon {
-      font-size: 28px;
-    }
-  }
-    
+.whatsapp {
+
+  background:
+    linear-gradient(
+      135deg,
+      #00c853,
+      #00e676
+    );
+
+  color: white;
+}
+
+.instagram {
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff0069,
+      #ff4081
+    );
+
+  color: white;
+}
+
 .icon:hover {
-    transform: scale(1.2);
-    color: #ffffff; /* Cambia el color al pasar el mouse */
+
+  transform:
+    translateY(-3px)
+    scale(1.05);
+
+  box-shadow:
+    0 10px 20px rgba(255,255,255,0.12);
 }
-    
-.whatsapp { color: #25D366; }
-.facebook { color: #4952cc; }
-.instagram { color: #E4405F; }
-.telegram { color: #189fd4; }
 
-.terminos-page {
-    font-size: 0.5rem;
-    margin-top: 8px;
-    margin-bottom: 10px;
-    color: #cccccc;
-  }
-  
-.condiciones {
-    color: #1e3144;
-    font-size: 0.65rem;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 0px;
-  }
-  
-  .condiciones:hover {
-    text-decoration: underline;
-  }
-  
+/* CONTACT */
 
+.contact-info a {
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+/* LINKS */
+
+.footer-links {
+
+  display: flex;
+
+  gap: 16px;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+}
+
+.footer-links a {
+
+  color: #b8b8b8;
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  transition: 0.2s ease;
+}
+
+.footer-links a:hover {
+
+  color: white;
+}
+
+/* COPYRIGHT */
+
+.footer-copy {
+
+  color: #7d7d7d;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .footer {
+
+    padding: 24px 16px 30px;
+  }
+
+  .footer-brand h2 {
+
+    font-size: 24px;
+  }
+
+  .footer-brand p {
+
+    font-size: 12px;
+  }
+
+  .icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    font-size: 22px;
+  }
+
+  .footer-links {
+
+    gap: 12px;
+  }
+}

@@ -5,9 +5,6 @@ import {
 
 import Link from "next/link";
 
-import LiveViewers
-from "@/components/home/LiveViewers";
-
 import "@/styles/Footer.css";
 
 export default function Footer() {
@@ -16,11 +13,17 @@ export default function Footer() {
 
     <footer className="footer">
 
-      {/* LIVE */}
 
-      <div className="footer-live">
+      {/* BRAND */}
 
-        <LiveViewers />
+      <div className="footer-brand">
+
+        <h2>EFAAT</h2>
+
+        <p>
+          Plataforma de dinámicas y experiencias
+          digitales con interacción en tiempo real.
+        </p>
 
       </div>
 
@@ -62,9 +65,27 @@ export default function Footer() {
 
       </p>
 
+      {/* LINKS */}
+
+      <div className="footer-links">
+
+        <Link href="/terminos">
+
+          Términos y condiciones
+
+        </Link>
+
+        <Link href="/privacidad">
+
+          Tratamiento de datos
+
+        </Link>
+
+      </div>
+
       {/* COPYRIGHT */}
 
-      <p className="terminos-page">
+      <p className="footer-copy">
 
         © 2025 EFAAT.
         Todos los derechos reservados.

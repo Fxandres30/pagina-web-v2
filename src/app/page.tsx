@@ -13,7 +13,8 @@ import WinningSection from "@/components/home/WinningSection";
 import Footer from "@/components/home/Footer";
 
 import TitleImage from "@/components/home/TitleImage";
-
+import LiveViewers
+from "@/components/home/LiveViewers";
 import PurchaseSection from "@/components/home/PurchaseSection";
 
 import "@/styles/HomeLayout.css";
@@ -77,8 +78,17 @@ export default function HomePage() {
           <VerifySection />
 
         </div>
-
+              
       </section>
+
+      {/* LIVE */}
+
+<div className="live-wrapper">
+
+  <LiveViewers />
+
+</div>
+
 
       <Footer />
 
