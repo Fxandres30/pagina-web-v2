@@ -6,65 +6,51 @@ import {
   Carousel
 } from "react-responsive-carousel";
 
+import {
+  useState
+} from "react";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import "@/styles/TitleImage.css";
 
 export default function TitleImage() {
 
+  const [selectedImage, setSelectedImage] =
+    useState<string | null>(null);
+
   const imagenes = [
 
-  {
-    src: "/5millones1.jpg",
-    alt: "Premio 1"
-  },
+    {
+      src: "/5millones1.jpg",
+      alt: "Premio 1"
+    },
 
-  {
-    src: "/5millones2.jpg",
-    alt: "Premio 2"
-  },
+    {
+      src: "/5millones2.jpg",
+      alt: "Premio 2"
+    },
 
-  {
-    src: "/5millones3.jpg",
-    alt: "Premio 3"
-  },
+    {
+      src: "/5millones3.jpg",
+      alt: "Premio 3"
+    },
 
-  {
-    src: "/5millones4.jpg",
-    alt: "Premio 4"
-  },
+    {
+      src: "/5millones4.jpg",
+      alt: "Premio 4"
+    },
 
-  {
-    src: "/5millones5.jpg",
-    alt: "Premio 5"
-  }
+    {
+      src: "/5millones5.jpg",
+      alt: "Premio 5"
+    }
 
-];
+  ];
 
   return (
 
     <section className="title-image-section">
-
-      {/* TEXTOS 
-
-      <div className="title-image-header">
-
-        <h2 className="title-image-title">
-
-          🎉 Premios Oficiales
-
-        </h2>
-
-        <p className="title-image-description">
-
-          Participa y compite por
-          increíbles premios instantáneos.
-
-        </p>
-
-      </div>*/}
-
-      {/* CARRUSEL */}
 
       <div className="title-image-wrapper">
 
@@ -74,8 +60,12 @@ export default function TitleImage() {
           showThumbs={false}
           showStatus={false}
           showIndicators={true}
-          interval={3500}
+          interval={8000}
+          transitionTime={500}
+          stopOnHover={true}
           swipeable
+          emulateTouch
+          preventMovementUntilSwipeScrollTolerance={true}
         >
 
           {imagenes.map((img, index) => (
@@ -88,10 +78,13 @@ export default function TitleImage() {
               <Image
                 src={img.src}
                 alt={img.alt}
-                width={500}
-                height={500}
+                width={700}
+                height={700}
                 className="title-image-img"
                 priority
+                onClick={() =>
+                  setSelectedImage(img.src)
+                }
               />
 
             </div>
@@ -101,6 +94,45 @@ export default function TitleImage() {
         </Carousel>
 
       </div>
+
+      {selectedImage && (
+
+        <div
+          className="image-modal"
+          onClick={() =>
+            setSelectedImage(null)
+          }
+        >
+
+          <div
+            className="image-modal-content"
+            onClick={(e) =>
+              e.stopPropagation()
+            }
+          >
+
+            <button
+              className="image-modal-close"
+              onClick={() =>
+                setSelectedImage(null)
+              }
+            >
+              ✕
+            </button>
+
+            <Image
+              src={selectedImage}
+              alt="Imagen ampliada"
+              width={1200}
+              height={1200}
+              className="image-modal-img"
+            />
+
+          </div>
+
+        </div>
+
+      )}
 
     </section>
   );
