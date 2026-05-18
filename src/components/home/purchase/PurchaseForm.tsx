@@ -1,6 +1,6 @@
 import {
   User,
-  Phone,
+  MessageCircle,
   Mail
 } from "lucide-react";
 
@@ -45,20 +45,20 @@ export default function PurchaseForm({
 
       <div className="input-group">
 
-        <Phone size={18} />
+  <MessageCircle size={18} />
 
-        <input
-          type="tel"
-          placeholder="Teléfono"
-          value={phone}
-          onChange={(e) =>
-            setPhone(
-              e.target.value.replace(/\D/g, "")
-            )
-          }
-        />
+  <input
+    type="tel"
+    placeholder="WhatsApp"
+    value={phone}
+    onChange={(e) =>
+      setPhone(
+        e.target.value.replace(/\D/g, "")
+      )
+    }
+  />
 
-      </div>
+</div>
 
       <div className="input-group">
 

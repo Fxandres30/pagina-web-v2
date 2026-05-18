@@ -1,6 +1,9 @@
 import { NextResponse }
 from "next/server";
 
+import { supabase }
+from "@/lib/supabase";
+
 export async function POST(
   req: Request
 ) {
@@ -20,7 +23,7 @@ export async function POST(
       formData.get("total") as string;
 
     const cantidad =
-  formData.get("cantidad") as string;
+      formData.get("cantidad") as string;
 
     const comprobante =
       formData.get("comprobante") as File;
@@ -42,6 +45,51 @@ export async function POST(
 
     });
 
+    // 🔥 GUARDAR PEDIDO
+    const {
+
+      data,
+      error
+
+    } = await supabase
+
+      .from("pedidos")
+
+      .insert([{
+
+        nombre,
+
+        whatsapp:
+          telefono,
+
+        cantidad:
+          Number(cantidad),
+
+        total:
+          Number(total),
+
+        metodo_pago:
+          "nequi",
+
+        status:
+          "pendiente"
+
+      }])
+
+      .select()
+
+      .single();
+
+    if (error) {
+
+      console.log(error);
+
+      throw new Error(
+        "Error guardando pedido"
+      );
+
+    }
+
     // 🔥 ENVIAR AL BOT
     const responseBot =
       await fetch(
@@ -61,6 +109,9 @@ export async function POST(
 
           body: JSON.stringify({
 
+            pedidoId:
+              data.id,
+
             nombre,
             telefono,
             total,
@@ -77,7 +128,7 @@ export async function POST(
 
       );
 
-    // 🔥 VER RESPUESTA BOT
+    // 🔥 RESPUESTA BOT
     const dataBot =
       await responseBot.text();
 
@@ -86,7 +137,7 @@ export async function POST(
       dataBot
     );
 
-    // 🔥 SI FALLA
+    // 🔥 VALIDAR BOT
     if (!responseBot.ok) {
 
       throw new Error(
@@ -94,6 +145,23 @@ export async function POST(
       );
 
     }
+
+    // 🔥 MARCAR MENSAJE ENVIADO
+    await supabase
+
+      .from("pedidos")
+
+      .update({
+
+        mensaje_recibido:
+          true
+
+      })
+
+      .eq(
+        "id",
+        data.id
+      );
 
     // 🔥 RESPUESTA FINAL
     return NextResponse.json({

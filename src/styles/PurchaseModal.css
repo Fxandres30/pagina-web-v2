@@ -374,3 +374,115 @@
 
   font-size: 15px;
 }
+
+.purchase-final-step {
+
+  margin-top: 20px;
+
+  padding: 18px;
+
+  border-radius: 20px;
+
+  background: #f7f7f7;
+
+}
+
+.purchase-final-step h3 {
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  margin-bottom: 18px;
+
+  color: #111;
+
+}
+
+.purchase-final-info {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+}
+
+.purchase-final-info p {
+
+  font-size: 15px;
+
+  font-weight: 500;
+
+  color: #333;
+
+}
+
+.purchase-proof-preview {
+
+  width: 100%;
+
+  max-height: 240px;
+
+  object-fit: cover;
+
+  border-radius: 16px;
+
+  margin-top: 10px;
+
+  border: 1px solid #ddd;
+
+}
+
+.purchase-final-actions {
+
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 24px;
+
+}
+
+.purchase-final-actions button {
+
+  flex: 1;
+
+  border: none;
+
+  border-radius: 14px;
+
+  padding: 14px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+}
+
+.purchase-final-actions button:first-child {
+
+  background: #e9e9e9;
+
+  color: #111;
+
+}
+
+.purchase-final-actions button:last-child {
+
+  background: #111;
+
+  color: white;
+
+}
+
+.purchase-final-actions button:hover {
+
+  transform: translateY(-2px);
+
+}

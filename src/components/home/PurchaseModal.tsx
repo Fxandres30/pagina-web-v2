@@ -33,19 +33,33 @@ export default function PurchaseModal({
   total
 }: Props) {
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [method, setMethod] = useState("nequi");
-  const [receipt, setReceipt] = useState<File | null>(null);
+  const [name, setName] =
+    useState("");
+
+  const [phone, setPhone] =
+    useState("");
+
+  const [email, setEmail] =
+    useState("");
+
+  const [method, setMethod] =
+    useState("nequi");
+
+  const [receipt, setReceipt] =
+    useState<File | null>(null);
+
+  const [step, setStep] =
+    useState(1);
 
   async function handleEnviarComprobante() {
 
     const error = validarCompra({
+
       name,
       phone,
       email,
       receipt
+
     });
 
     if (error) {
@@ -56,36 +70,61 @@ export default function PurchaseModal({
 
       await enviarComprobante({
 
-  nombre: name,
-  telefono: phone,
-  correo: email,
-  metodo: method,
-  total,
-  cantidad: amount,
-  comprobante: receipt,
+        nombre: name,
+        telefono: phone,
+        correo: email,
+        metodo: method,
 
-});
+        total,
 
-      alert("✅ Comprobante enviado");
+        cantidad: amount,
 
-    } catch (error) {
+        comprobante: receipt,
+
+      });
+
+      alert(
+        "✅ Comprobante enviado"
+      );
+
+      onClose();
+
+    }
+
+    catch (error) {
 
       console.error(error);
-      alert("❌ Error enviando");
+
+      alert(
+        "❌ Error enviando"
+      );
+
     }
+
   }
 
-  const copyText = async (text: string) => {
+  const copyText = async (
+    text: string
+  ) => {
 
     try {
 
-      await navigator.clipboard.writeText(text);
+      await navigator
+        .clipboard
+        .writeText(text);
+
       alert("✅ Copiado");
 
-    } catch {
-
-      alert("❌ Error al copiar");
     }
+
+    catch {
+
+      alert(
+        "❌ Error al copiar"
+      );
+
+    }
+
   };
 
   if (!open) return null;
@@ -104,78 +143,238 @@ export default function PurchaseModal({
         </button>
 
         <h2 className="purchase-title">
+
           <Ticket size={24} />
+
           Finalizar compra
+
         </h2>
 
-        <p>
-          Completa tus datos para continuar.
-        </p>
+        {step === 1 && (
 
-        <PurchaseForm
-          name={name}
-          setName={setName}
-          phone={phone}
-          setPhone={setPhone}
-          email={email}
-          setEmail={setEmail}
-        />
+          <>
 
-        <div className="purchase-summary">
+            <p>
+              Completa tus datos
+              para continuar.
+            </p>
 
-          <span className="summary-numbers">
-            <Ticket size={16} />
-            {amount} números
-          </span>
+            <PurchaseForm
+              name={name}
+              setName={setName}
+              phone={phone}
+              setPhone={setPhone}
+              email={email}
+              setEmail={setEmail}
+            />
 
-          <strong>
-            ${total.toLocaleString("es-CO")}
-          </strong>
+            <div className="purchase-summary">
 
-        </div>
+              <span className="summary-numbers">
 
-        <div className="payment-methods">
+                <Ticket size={16} />
 
-          <button
-            type="button"
-            className={`payment-method ${method === "nequi" ? "active" : ""}`}
-            onClick={() => setMethod("nequi")}
-          >
-            <Wallet size={18} />
-            Nequi
-          </button>
+                {amount} números
 
-          <button
-            type="button"
-            className={`payment-method ${method === "bancolombia" ? "active" : ""}`}
-            onClick={() => setMethod("bancolombia")}
-          >
-            <Building2 size={18} />
-            Bancolombia
-          </button>
+              </span>
 
-        </div>
+              <strong>
 
-        <PaymentInfo
-          method={method}
-          copyText={copyText}
-        />
+                $
+                {total.toLocaleString(
+                  "es-CO"
+                )}
 
-        <ReceiptUpload
-          receipt={receipt}
-          setReceipt={setReceipt}
-        />
+              </strong>
 
-        <button
-          className="purchase-pay-button"
-          onClick={handleEnviarComprobante}
-        >
-          <Rocket size={18} />
-          Enviar comprobante
-        </button>
+            </div>
+
+            <div className="payment-methods">
+
+              <button
+                type="button"
+
+                className={`payment-method ${
+                  method === "nequi"
+                    ? "active"
+                    : ""
+                }`}
+
+                onClick={() =>
+                  setMethod(
+                    "nequi"
+                  )
+                }
+              >
+
+                <Wallet size={18} />
+
+                Nequi
+
+              </button>
+
+              <button
+                type="button"
+
+                className={`payment-method ${
+                  method ===
+                  "bancolombia"
+                    ? "active"
+                    : ""
+                }`}
+
+                onClick={() =>
+                  setMethod(
+                    "bancolombia"
+                  )
+                }
+              >
+
+                <Building2 size={18} />
+
+                Bancolombia
+
+              </button>
+
+            </div>
+
+            <PaymentInfo
+              method={method}
+              copyText={copyText}
+            />
+
+            <ReceiptUpload
+              receipt={receipt}
+              setReceipt={setReceipt}
+            />
+
+            <button
+
+              className="purchase-pay-button"
+
+              onClick={() => {
+
+  const error =
+    validarCompra({
+
+      name,
+      phone,
+      email,
+      receipt
+
+    });
+
+  if (error) {
+    return alert(error);
+  }
+
+  setStep(2);
+
+}}
+
+            >
+
+              <Rocket size={18} />
+
+              Continuar
+
+            </button>
+
+          </>
+
+        )}
+
+        {step === 2 && (
+
+          <div className="purchase-final-step">
+
+            <h3>
+              📋 Verifica tu compra
+            </h3>
+
+            <div className="purchase-final-info">
+
+              <p>
+                👤 {name}
+              </p>
+
+              <p>
+                💬 {phone}
+              </p>
+
+              <p>
+                🎟️ {amount} números
+              </p>
+
+              <p>
+                💰 $
+                {total.toLocaleString(
+                  "es-CO"
+                )}
+              </p>
+
+              <p>
+                🏦 {method}
+              </p>
+
+              {receipt && (
+
+  <img
+
+    src={URL.createObjectURL(
+      receipt
+    )}
+
+    alt="Comprobante"
+
+    className="purchase-proof-preview"
+
+  />
+
+)}
+
+            </div>
+
+            <div className="purchase-final-actions">
+
+              <button
+
+                type="button"
+
+                onClick={() =>
+                  setStep(1)
+                }
+
+              >
+
+                Editar
+
+              </button>
+
+              <button
+
+                type="button"
+
+                onClick={
+                  handleEnviarComprobante
+                }
+
+              >
+
+                Confirmar compra
+
+              </button>
+
+            </div>
+
+          </div>
+
+        )}
 
       </div>
 
     </div>
+
   );
+
 }
