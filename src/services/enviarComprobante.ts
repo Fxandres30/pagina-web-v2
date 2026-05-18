@@ -21,11 +21,9 @@ export async function enviarComprobante(
   );
 
   formData.append(
-    "numeros",
-    JSON.stringify(
-      data.numeros
-    )
-  );
+  "cantidad",
+  data.cantidad
+);
 
   formData.append(
     "comprobante",

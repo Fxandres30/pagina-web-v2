@@ -55,14 +55,16 @@ export default function PurchaseModal({
     try {
 
       await enviarComprobante({
-        nombre: name,
-        telefono: phone,
-        correo: email,
-        metodo: method,
-        total,
-        cantidad: amount,
-        comprobante: receipt,
-      });
+
+  nombre: name,
+  telefono: phone,
+  correo: email,
+  metodo: method,
+  total,
+  cantidad: amount,
+  comprobante: receipt,
+
+});
 
       alert("✅ Comprobante enviado");
 

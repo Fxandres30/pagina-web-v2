@@ -11,50 +11,121 @@ export async function POST(
       await req.formData();
 
     const nombre =
-      formData.get("nombre");
+      formData.get("nombre") as string;
 
     const telefono =
-      formData.get("telefono");
+      formData.get("telefono") as string;
 
     const total =
-      formData.get("total");
+      formData.get("total") as string;
 
-    const numeros =
-      formData.get("numeros");
+    const cantidad =
+  formData.get("cantidad") as string;
 
     const comprobante =
-      formData.get("comprobante");
+      formData.get("comprobante") as File;
+
+    // 🔥 convertir imagen
+    const bytes =
+      await comprobante.arrayBuffer();
+
+    const buffer =
+      Buffer.from(bytes);
 
     console.log({
 
       nombre,
-
       telefono,
-
       total,
-
-      numeros,
-
-      comprobante,
+      cantidad,
+      comprobante
 
     });
 
+    // 🔥 ENVIAR AL BOT
+    const responseBot =
+      await fetch(
+
+        "http://localhost:3001/enviar-comprobante",
+
+        {
+
+          method: "POST",
+
+          headers: {
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body: JSON.stringify({
+
+            nombre,
+            telefono,
+            total,
+            cantidad,
+
+            imagen:
+              buffer.toString(
+                "base64"
+              )
+
+          })
+
+        }
+
+      );
+
+    // 🔥 VER RESPUESTA BOT
+    const dataBot =
+      await responseBot.text();
+
+    console.log(
+      "RESPUESTA BOT:",
+      dataBot
+    );
+
+    // 🔥 SI FALLA
+    if (!responseBot.ok) {
+
+      throw new Error(
+        "Bot respondió error"
+      );
+
+    }
+
+    // 🔥 RESPUESTA FINAL
     return NextResponse.json({
 
-      success: true,
+      success: true
 
     });
 
-  } catch (error) {
+  }
+
+  catch (error: any) {
+
+    console.log(
+      "ERROR REAL:",
+      error
+    );
 
     return NextResponse.json(
+
       {
+
         error:
-          "Error interno",
+          error.message
+
       },
+
       {
-        status: 500,
+
+        status: 500
+
       }
+
     );
 
   }
