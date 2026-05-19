@@ -56,14 +56,14 @@ export default function Footer() {
       {/* CONTACT */}
 
       <p className="contact-info">
+  
+  <a href="mailto:contacto@efaat.com">
 
-        <a href="mailto:info@efaat.com">
+    contacto@efaat.com
 
-          info@efaat.com
+  </a>
 
-        </a>
-
-      </p>
+</p>
 
       {/* LINKS */}
 
