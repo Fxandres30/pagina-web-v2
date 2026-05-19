@@ -461,3 +461,37 @@
     width: 100%;
   }
 }
+
+.purchase-error {
+
+  margin-top: 10px;
+
+  color: #ff4d6d;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+}
+
+.purchase-available {
+
+  margin-top: 14px;
+
+  margin-bottom: 20px;
+
+  color: rgba(255,255,255,0.75);
+
+  font-size: 15px;
+
+  text-align: center;
+
+}
+
+.purchase-sticky button:disabled {
+
+  opacity: 0.5;
+
+  cursor: not-allowed;
+
+}

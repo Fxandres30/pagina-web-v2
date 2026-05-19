@@ -4,16 +4,13 @@ import { useEffect, useState } from "react";
 
 import { supabase } from "@/lib/supabase";
 
+import {
+  validarCantidad
+} from "@/services/validarCantidad";
+
 import PurchaseModal from "@/components/home/PurchaseModal";
 
 import "@/styles/PurchaseSection.css";
-
-interface ActiveRaffle {
-  precio: number;
-  cantidad_minima: number;
-  cantidad_maxima: number;
-  paquetes: number[];
-}
 
 export default function PurchaseSection() {
 
@@ -31,6 +28,16 @@ export default function PurchaseSection() {
 
   const [showModal, setShowModal] =
     useState(false);
+
+  const [
+    amountError,
+    setAmountError
+  ] = useState("");
+
+  const [
+    availableNumbers,
+    setAvailableNumbers
+  ] = useState(0);
 
   // 🔥 CARGAR EVENTO
 
@@ -52,8 +59,11 @@ export default function PurchaseSection() {
           .maybeSingle();
 
       if (error) {
+
         console.error(error);
+
         return;
+
       }
 
       if (!data) return;
@@ -71,10 +81,15 @@ export default function PurchaseSection() {
       );
 
       setPackages(
+
         Array.isArray(data.paquetes)
+
           ? data.paquetes
+
           : [5, 10, 20, 50]
+
       );
+
     };
 
     fetchRaffle();
@@ -86,37 +101,140 @@ export default function PurchaseSection() {
   const total =
     selectedAmount * price;
 
-  // 🔥 VALIDAR CUSTOM
+  // 🔥 VALIDAR TIEMPO REAL
 
-  const handleCustomAmount = (
-    value: number
-  ) => {
+  const validarEnTiempoReal =
+    async (
+      cantidad: number
+    ) => {
 
-    if (value > maxAmount) {
+      try {
 
-      setSelectedAmount(maxAmount);
+        const response =
+          await fetch(
+            "/api/progreso-boletos"
+          );
 
-      return;
-    }
+        const data =
+          await response.json();
 
-    setSelectedAmount(value);
-  };
+        const disponibles =
+          data.boletosDisponibles || 0;
+
+        setAvailableNumbers(
+          disponibles
+        );
+
+        const error =
+          validarCantidad({
+
+            selectedAmount:
+              cantidad,
+
+            minAmount,
+
+            maxAmount,
+
+            availableNumbers:
+              disponibles
+
+          });
+
+        setAmountError(
+          error || ""
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+      }
+
+    };
+
+  // 🔥 INPUT CUSTOM
+
+const handleCustomAmount = (
+  value: number
+) => {
+
+  // 🔥 EVITAR NEGATIVOS
+
+  if (value < 0) {
+
+    value = 0;
+
+  }
+
+  // 🔥 LIMITAR MÁXIMO
+
+  if (value > maxAmount) {
+
+    value = maxAmount;
+
+  }
+
+  setSelectedAmount(value);
+
+  validarEnTiempoReal(value);
+
+};
 
   // 🔥 VALIDAR MODAL
 
-  const handleOpenModal = () => {
+  const handleOpenModal =
+    async () => {
 
-    if (selectedAmount < minAmount) {
+      try {
 
-      alert(
-        `La compra mínima es de ${minAmount} números`
-      );
+        const response =
+          await fetch(
+            "/api/progreso-boletos"
+          );
 
-      return;
-    }
+        const data =
+          await response.json();
 
-    setShowModal(true);
-  };
+        const disponibles =
+          data.boletosDisponibles || 0;
+
+        const error =
+          validarCantidad({
+
+            selectedAmount,
+
+            minAmount,
+
+            maxAmount,
+
+            availableNumbers:
+              disponibles
+
+          });
+
+        if (error) {
+
+          return alert(error);
+
+        }
+
+        setShowModal(true);
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        alert(
+          "❌ Error verificando disponibilidad"
+        );
+
+      }
+
+    };
 
   return (
 
@@ -127,12 +245,16 @@ export default function PurchaseSection() {
         {/* TITLE */}
 
         <h2 className="purchase-title">
+
           🎟️ Compra tus números
+
         </h2>
 
         <p className="purchase-description">
+
           Selecciona un paquete
           o elige tu cantidad.
+
         </p>
 
         {/* INFO */}
@@ -140,22 +262,35 @@ export default function PurchaseSection() {
         <div className="purchase-info">
 
           <span>
+
             🔥 Compra mínima:
-            {" "}
+
             <strong>
               {minAmount}
             </strong>
+
           </span>
 
           <span>
+
             🎟️ Máximo:
-            {" "}
+
             <strong>
               {maxAmount}
             </strong>
+
           </span>
 
         </div>
+
+        {/* DISPONIBLES */}
+
+        <p className="purchase-available">
+
+          🔥 {availableNumbers}
+          números disponibles
+
+        </p>
 
         {/* PACKAGES */}
 
@@ -164,7 +299,9 @@ export default function PurchaseSection() {
           {packages.map((amount) => (
 
             <button
+
               key={amount}
+
               className={`
                 purchase-card
                 ${
@@ -173,9 +310,8 @@ export default function PurchaseSection() {
                     : ""
                 }
               `}
-              onClick={() => {
 
-                // 🔥 TOGGLE
+              onClick={() => {
 
                 if (
                   selectedAmount === amount
@@ -183,11 +319,20 @@ export default function PurchaseSection() {
 
                   setSelectedAmount(0);
 
+                  setAmountError("");
+
                   return;
+
                 }
 
                 setSelectedAmount(amount);
+
+                validarEnTiempoReal(
+                  amount
+                );
+
               }}
+
             >
 
               <span>
@@ -199,9 +344,11 @@ export default function PurchaseSection() {
               </small>
 
               <strong>
+
                 $
                 {(amount * price)
                   .toLocaleString("es-CO")}
+
               </strong>
 
             </button>
@@ -215,23 +362,49 @@ export default function PurchaseSection() {
         <div className="purchase-custom">
 
           <label>
+
             Cantidad personalizada
+
           </label>
 
           <input
+
             type="number"
+
             min={minAmount}
+
             max={maxAmount}
+
             placeholder={`Mínimo ${minAmount}`}
+
             value={
               selectedAmount || ""
             }
-            onChange={(e) =>
-              handleCustomAmount(
-                Number(e.target.value)
-              )
-            }
+
+            onChange={(e) => {
+
+  const value =
+    Number(e.target.value);
+
+  handleCustomAmount(value);
+
+}}
+
           />
+
+          {
+
+            amountError && (
+
+              <p className="purchase-error">
+
+                {amountError}
+
+              </p>
+
+            )
+
+          }
 
         </div>
 
@@ -239,44 +412,67 @@ export default function PurchaseSection() {
 
       {/* STICKY */}
 
-      {selectedAmount > 0 && (
+      {
 
-        <div className="purchase-sticky">
+        selectedAmount > 0 && (
 
-          <div>
+          <div className="purchase-sticky">
 
-            <span>
-              🎟️ {selectedAmount} números
-            </span>
+            <div>
 
-            <strong>
-              $
-              {total.toLocaleString("es-CO")}
-            </strong>
+              <span>
+
+                🎟️ {selectedAmount} números
+
+              </span>
+
+              <strong>
+
+                $
+                {total.toLocaleString(
+                  "es-CO"
+                )}
+
+              </strong>
+
+            </div>
+
+            <button
+
+              onClick={handleOpenModal}
+
+              disabled={!!amountError}
+
+            >
+
+              Ir a pagar
+
+            </button>
 
           </div>
 
-          <button
-            onClick={handleOpenModal}
-          >
-            Ir a pagar
-          </button>
+        )
 
-        </div>
-
-      )}
+      }
 
       {/* MODAL */}
 
       <PurchaseModal
+
         open={showModal}
+
         onClose={() =>
           setShowModal(false)
         }
+
         amount={selectedAmount}
+
         total={total}
+
       />
 
     </section>
+
   );
+
 }
