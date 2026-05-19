@@ -274,32 +274,33 @@ font-size: 14px;
 
 
 /* 📱 RESPONSIVE */
+/* 📱 RESPONSIVE */
 
 @media (max-width: 768px) {
 
   .footer {
 
     padding:
-    70px 20px 40px;
+    20px 20px 35px;
 
   }
 
   .footer-brand h2 {
 
-    font-size: 42px;
+    font-size: 25px;
 
   }
 
   .footer-brand p {
 
-    font-size: 16px;
+    font-size: 14px;
 
   }
 
   .icon {
 
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
 
     font-size: 28px;
 
@@ -307,11 +308,31 @@ font-size: 14px;
 
   .contact-info a {
 
-    font-size: 16px;
+    font-size: 15px;
 
     padding:
-    13px 22px;
+    8px 22px;
 
   }
+
+  .footer-links {
+
+    flex-direction: column;
+    
+    gap: 11px;
+
+    align-items: center;
+
+  }
+
+  .footer-links a {
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  transition: 0.3s ease;
+
+}
 
 }
