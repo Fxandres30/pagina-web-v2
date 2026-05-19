@@ -1,6 +1,7 @@
 import {
   FaInstagram,
-  FaWhatsapp
+  FaWhatsapp,
+  FaFacebookF
 } from "react-icons/fa";
 
 import Link from "next/link";
@@ -50,6 +51,16 @@ export default function Footer() {
           <FaInstagram />
 
         </Link>
+
+        <Link
+  href="https://facebook.com/TU_PAGINA"
+  className="icon facebook"
+  target="_blank"
+>
+
+  <FaFacebookF />
+
+</Link>
 
       </div>
 

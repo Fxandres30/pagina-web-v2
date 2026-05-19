@@ -149,7 +149,7 @@ font-size: 33px;
   background:
   linear-gradient(
     135deg,
-    #00ff88,
+    #0ac970,
     #00c96b
   );
 
@@ -163,12 +163,36 @@ font-size: 33px;
   background:
   linear-gradient(
     135deg,
-    #ff2e88,
-    #ff5f6d
+    #f58529 0%,
+    #feda77 15%,
+    #dd2a7b 45%,
+    #8134af 75%,
+    #515bd4 100%
   );
 
   box-shadow:
-  0 10px 20px rgba(255,46,136,0.28);
+  0 10px 30px rgba(221,42,123,0.35);
+
+}
+
+.instagram:hover {
+
+  box-shadow:
+  0 0 35px rgba(221,42,123,0.45);
+
+}
+
+.facebook {
+
+  background:
+  linear-gradient(
+    135deg,
+    #00a2ff,
+    #244c86
+  );
+
+  box-shadow:
+  0 10px 30px rgba(233, 237, 243, 0.28);
 
 }
 
