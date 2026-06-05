@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import "@/styles/PurchaseModal.css";
+import "@/styles/PurchaseSection.css";
 
 import { enviarComprobante } from "@/services/enviarComprobante";
 import { validarCompra } from "@/services/validarCompra";

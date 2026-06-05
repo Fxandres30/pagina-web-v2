@@ -57,12 +57,12 @@ export default function ProgressSection() {
 
 }, []);
    
- return (
+return (
 
   <section className="progress-section">
 
     <Leyenda progreso={progreso} />
-    
+
     <div className="progress-bar">
 
       <div
@@ -78,7 +78,16 @@ export default function ProgressSection() {
 
     </div>
 
+    <p className="progress-acumulado">
+
+  💰 La Bendición Millonaria puede seguir creciendo.
+  Si el premio principal no tiene ganador,
+  se acumulará para la siguiente dinámica.
+
+</p>
+
   </section>
+
 );
 }
 

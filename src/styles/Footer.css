@@ -91,6 +91,27 @@
 
 }
 
+.telegram {
+
+  background:
+  linear-gradient(
+    135deg,
+    #2AABEE,
+    #229ED9
+  );
+
+  box-shadow:
+  0 10px 30px rgba(34,158,217,0.35);
+
+}
+
+.telegram:hover {
+
+  box-shadow:
+  0 0 35px rgba(34,158,217,0.50);
+
+}
+
 .footer-brand p {
 
   color: rgba(255,255,255,0.72);

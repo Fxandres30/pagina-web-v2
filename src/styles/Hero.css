@@ -71,13 +71,14 @@
 }
 
 /* TITLE */
-
 .hero-title {
+
+  padding-right: 70px;
 
   text-align: center;
 
   font-size: 24px;
-  padding-right: 70px;
+
   font-weight: 900;
 
   line-height: 1.1;
@@ -85,6 +86,7 @@
   margin-bottom: 20px;
 
   color: #111;
+
 }
 
 /* PREMIO */
@@ -123,21 +125,43 @@
     0 4px 10px rgba(0,161,82,0.12);
 }
 
+.hero-lottery{
+
+  margin-top: 8px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:6px;
+
+  font-size:13px;
+
+  font-weight:700;
+
+  color:#555;
+
+}
+
 /* STATS */
 
 .hero-stats {
 
-  display: grid;
+  display: flex;
 
-  grid-template-columns:
-    repeat(2, 1fr);
-
-  gap: 10px;
+  justify-content: center;
 
   margin-bottom: 16px;
+
 }
 
 .hero-stat-card {
+
+  width: 100%;
+
+  max-width: 220px;
 
   background: white;
 
@@ -150,7 +174,6 @@
   box-shadow:
     0 4px 10px rgba(0,0,0,0.04);
 
-  transition: 0.2s ease;
 }
 
 .hero-stat-card:hover {
@@ -425,5 +448,60 @@
 
     transform: scale(1.06);
   }
+
+}
+
+
+.hero-badge,
+.hero-principal-label,
+.hero-date,
+.hero-stat-card span {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+}
+
+.hero-invested{
+
+  margin-top: 12px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  padding: 10px 14px;
+
+  border-radius: 14px;
+
+  background:
+    rgba(14,164,75,.08);
+
+}
+
+.hero-invested span{
+
+  font-size:14px;
+
+  font-weight:600;
+
+}
+
+.hero-invested strong{
+
+  color:#0ea44b;
+
+  font-size:24px;
+
+  font-weight:900;
 
 }

@@ -327,3 +327,36 @@
     font-size: 9px;
   }
 }
+
+.verify-title,
+.verify-total,
+.verify-prize,
+.verify-button {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+}
+
+.spin {
+
+  animation: spin 1s linear infinite;
+
+}
+
+@keyframes spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}

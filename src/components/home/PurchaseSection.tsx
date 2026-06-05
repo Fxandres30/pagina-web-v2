@@ -1,5 +1,14 @@
 "use client";
 
+import {
+  Ticket,
+  Flame,
+  Hash,
+  Loader2,
+  CreditCard,
+  ShoppingCart
+} from "lucide-react";
+
 import { useEffect, useState } from "react";
 
 import { supabase } from "@/lib/supabase";
@@ -10,10 +19,12 @@ import {
 
 import PurchaseModal from "@/components/home/PurchaseModal";
 
-import "@/styles/PurchaseSection.css";
+
+
 
 export default function PurchaseSection() {
 
+  
   const [price, setPrice] = useState(0);
 
   const [minAmount, setMinAmount] = useState(1);
@@ -28,6 +39,9 @@ export default function PurchaseSection() {
 
   const [showModal, setShowModal] =
     useState(false);
+
+  const [loading, setLoading] =
+  useState(false);
 
   const [
     amountError,
@@ -185,56 +199,66 @@ const handleCustomAmount = (
   // 🔥 VALIDAR MODAL
 
   const handleOpenModal =
-    async () => {
+  async () => {
 
-      try {
+    try {
 
-        const response =
-          await fetch(
-            "/api/progreso-boletos"
-          );
+      setLoading(true);
 
-        const data =
-          await response.json();
-
-        const disponibles =
-          data.boletosDisponibles || 0;
-
-        const error =
-          validarCantidad({
-
-            selectedAmount,
-
-            minAmount,
-
-            maxAmount,
-
-            availableNumbers:
-              disponibles
-
-          });
-
-        if (error) {
-
-          return alert(error);
-
-        }
-
-        setShowModal(true);
-
-      }
-
-      catch (error) {
-
-        console.error(error);
-
-        alert(
-          "❌ Error verificando disponibilidad"
+      const response =
+        await fetch(
+          "/api/progreso-boletos"
         );
 
+      const data =
+        await response.json();
+
+      const disponibles =
+        data.boletosDisponibles || 0;
+
+      const error =
+        validarCantidad({
+
+          selectedAmount,
+
+          minAmount,
+
+          maxAmount,
+
+          availableNumbers:
+            disponibles
+
+        });
+
+      if (error) {
+
+        alert(error);
+
+        return;
+
       }
 
-    };
+      setShowModal(true);
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      alert(
+        "❌ Error verificando disponibilidad"
+      );
+
+    }
+
+    finally {
+
+      setLoading(false);
+
+    }
+
+  };
 
   return (
 
@@ -246,9 +270,11 @@ const handleCustomAmount = (
 
         <h2 className="purchase-title">
 
-          🎟️ Compra tus números
+  <ShoppingCart size={28} />
 
-        </h2>
+  Compra tus números
+
+</h2>
 
         <p className="purchase-description">
 
@@ -261,9 +287,9 @@ const handleCustomAmount = (
 
         <div className="purchase-info">
 
-          <span>
-
-            🔥 Compra mínima:
+<span>
+          <Flame size={15} />
+Compra mínima:
 
             <strong>
               {minAmount}
@@ -273,7 +299,8 @@ const handleCustomAmount = (
 
           <span>
 
-            🎟️ Máximo:
+            <Hash size={15} />
+Máximo:
 
             <strong>
               {maxAmount}
@@ -285,12 +312,12 @@ const handleCustomAmount = (
 
         {/* DISPONIBLES */}
 
-        <p className="purchase-available">
+        {/*<p className="purchase-available">
 
           🔥 {availableNumbers}
           números disponibles
 
-        </p>
+        </p>*/}
 
         {/* PACKAGES */}
 
@@ -422,7 +449,13 @@ const handleCustomAmount = (
 
               <span>
 
-                🎟️ {selectedAmount} números
+                <span>
+
+  <Ticket size={15} />
+
+  {selectedAmount} números
+
+</span>
 
               </span>
 
@@ -439,15 +472,43 @@ const handleCustomAmount = (
 
             <button
 
-              onClick={handleOpenModal}
+  onClick={handleOpenModal}
 
-              disabled={!!amountError}
+  disabled={
+    !!amountError ||
+    loading
+  }
 
-            >
+>
 
-              Ir a pagar
+  {
+  loading ? (
 
-            </button>
+    <>
+
+      <Loader2
+        size={16}
+        className="spin"
+      />
+
+      Preparando pago...
+
+    </>
+
+  ) : (
+
+    <>
+
+      <CreditCard size={16} />
+
+      Ir a pagar
+
+    </>
+
+  )
+}
+
+</button>
 
           </div>
 

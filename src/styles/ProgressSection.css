@@ -137,3 +137,21 @@
   }
 
 }
+
+.progress-acumulado{
+
+  margin-top: 12px;
+
+  text-align: center;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #666;
+
+  max-width: 500px;
+
+  line-height: 1.5;
+
+}

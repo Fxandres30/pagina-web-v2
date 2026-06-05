@@ -495,3 +495,48 @@
   cursor: not-allowed;
 
 }
+
+.spin {
+
+  animation:
+    spin 1s linear infinite;
+
+}
+
+@keyframes spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+.purchase-info span,
+.purchase-sticky span,
+.purchase-title {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+}
+
+.purchase-sticky button {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+}

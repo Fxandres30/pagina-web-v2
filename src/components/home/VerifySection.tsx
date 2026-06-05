@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  Search,
+  Ticket,
+  Trophy,
+  Loader2,
+  Phone,
+} from "lucide-react";
+
 import { useState } from "react";
 
 import { supabase } from "@/lib/supabase";
@@ -123,8 +131,12 @@ export default function VerifySection() {
       <div className="verify-box">
 
         <h2 className="verify-title">
-          🔍 Verifica tus números
-        </h2>
+
+  <Search size={26} />
+
+  Verifica tus números
+
+</h2>
 
         <p className="verify-description">
 
@@ -149,10 +161,27 @@ export default function VerifySection() {
         >
 
           {
-            loading
-              ? "Consultando..."
-              : "Consultar números"
-          }
+  loading ? (
+
+    <>
+      <Loader2
+        size={16}
+        className="spin"
+      />
+
+      Consultando...
+    </>
+
+  ) : (
+
+    <>
+      <Search size={16} />
+
+      Consultar números
+    </>
+
+  )
+}
 
         </button>
 
@@ -178,7 +207,9 @@ export default function VerifySection() {
 
               <div className="verify-total">
 
-                🎟️ Números encontrados:
+                <Ticket size={18} />
+
+Números encontrados:
                 {" "}
                 {tickets.length}
 
@@ -229,7 +260,7 @@ export default function VerifySection() {
 
                         <span className="verify-prize">
 
-                          🏆 $
+                         <Trophy size={16} />
 
                           {Number(
                             ticket.valor_premio

@@ -1,7 +1,8 @@
 import {
   FaInstagram,
   FaWhatsapp,
-  FaFacebookF
+  FaFacebookF,
+  FaTelegramPlane
 } from "react-icons/fa";
 
 import Link from "next/link";
@@ -22,9 +23,9 @@ export default function Footer() {
         <h2>EFAAT</h2>
 
         <p>
-          Plataforma de dinámicas y experiencias
-          digitales con interacción en tiempo real.
-        </p>
+  Plataforma de dinámicas y experiencias
+  digitales con interacción en tiempo real.
+</p>
 
       </div>
 
@@ -32,37 +33,39 @@ export default function Footer() {
 
       <div className="social-icons">
 
-        <Link
-          href="https://wa.me/+573106142416"
-          className="icon whatsapp"
-          target="_blank"
-        >
+  <Link
+    href="https://wa.me/573014123951"
+    className="icon whatsapp"
+    target="_blank"
+  >
+    <FaWhatsapp />
+  </Link>
 
-          <FaWhatsapp />
+  <Link
+    href="https://www.instagram.com/fxandres30"
+    className="icon instagram"
+    target="_blank"
+  >
+    <FaInstagram />
+  </Link>
 
-        </Link>
+  <Link
+    href="https://facebook.com/TU_PAGINA"
+    className="icon facebook"
+    target="_blank"
+  >
+    <FaFacebookF />
+  </Link>
 
-        <Link
-          href="https://www.instagram.com/fxandres30"
-          className="icon instagram"
-          target="_blank"
-        >
+  <Link
+    href="https://t.me/EfaatOficial"
+    className="icon telegram"
+    target="_blank"
+  >
+    <FaTelegramPlane />
+  </Link>
 
-          <FaInstagram />
-
-        </Link>
-
-        <Link
-  href="https://facebook.com/TU_PAGINA"
-  className="icon facebook"
-  target="_blank"
->
-
-  <FaFacebookF />
-
-</Link>
-
-      </div>
+</div>
 
       {/* CONTACT */}
 
@@ -78,27 +81,29 @@ export default function Footer() {
 
       {/* LINKS */}
 
-      <div className="footer-links">
+      {/* LINKS */}
 
-        <Link href="/terminos">
+<div className="footer-links">
 
-          Términos y condiciones
+  <Link href="/terminos">
+    Términos y condiciones
+  </Link>
 
-        </Link>
+  <Link href="/privacidad">
+    Tratamiento de datos
+  </Link>
 
-        <Link href="/privacidad">
+  <Link href="/pagos">
+    Pagos y reembolsos
+  </Link>
 
-          Tratamiento de datos
-
-        </Link>
-
-      </div>
+</div>
 
       {/* COPYRIGHT */}
 
       <p className="footer-copy">
 
-        © 2025 EFAAT.
+        © {new Date().getFullYear()} EFAAT
         Todos los derechos reservados.
 
       </p>

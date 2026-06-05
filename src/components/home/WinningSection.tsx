@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  Trophy,
+  Gift,
+  Ticket,
+  BadgeDollarSign
+} from "lucide-react";
+
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
@@ -145,7 +152,7 @@ const WinningNumbers: React.FC = () => {
 
     return (
       <div className="loading-box">
-        No hay sorteos activos.
+        No hay dinamica activa.
       </div>
     );
   }
@@ -157,8 +164,12 @@ const WinningNumbers: React.FC = () => {
       <div className="winning-header">
 
         <h2 className="winning-numbers-title">
-          🎯 Tarjetas Bendecidas 🎯
-        </h2>
+
+  <Trophy size={28} />
+
+  Tarjetas Bendecidas
+
+</h2>
 
         <p className="winning-numbers-dinamica">
           {raffle.nombre}
@@ -167,8 +178,12 @@ const WinningNumbers: React.FC = () => {
         <div className="winning-stats">
 
           <span>
-            🏆 Premiados: {winners.length}
-          </span>
+
+  <Gift size={20} />
+
+  Bendecidos: {winners.length}
+
+</span>
 
         </div>
 

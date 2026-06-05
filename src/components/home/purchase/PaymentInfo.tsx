@@ -26,10 +26,12 @@ export default function PaymentInfo({
             Nequi
           </strong>
 
-          <span>3014123951</span>
+          <span className="payment-number">
+            3014123951
+          </span>
 
           <small>
-            Andres Mercado
+            Titular: Andrés Mercado
           </small>
 
           <button
@@ -40,6 +42,12 @@ export default function PaymentInfo({
             <Copy size={16} />
             Copiar número
           </button>
+
+          <p className="payment-note">
+            Después de realizar el pago,
+            envía el comprobante para validar
+            tu participación.
+          </p>
         </>
 
       )}
@@ -52,26 +60,38 @@ export default function PaymentInfo({
             Bancolombia
           </strong>
 
-          <span>
-            Ahorros: 223423235
+          <span className="payment-number">
+            91299062380
           </span>
 
           <small>
-            Andres Mercado
+            Cuenta de Ahorros
+          </small>
+
+          <small>
+            Titular: Andrés Mercado
           </small>
 
           <button
             type="button"
             className="copy-button"
-            onClick={() => copyText("123456789")}
+            onClick={() => copyText("91299062380")}
           >
             <Copy size={16} />
             Copiar cuenta
           </button>
+
+          <p className="payment-note">
+            Después de realizar el pago,
+            envía el comprobante para validar
+            tu participación.
+          </p>
+
         </>
 
       )}
 
     </div>
+
   );
 }

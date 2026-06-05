@@ -5,6 +5,10 @@ import {
   useState
 } from "react";
 
+import {
+  Activity
+} from "lucide-react";
+
 import "@/styles/LiveViewers.css";
 
 export default function LiveViewers() {
@@ -41,9 +45,12 @@ export default function LiveViewers() {
 
     <div className="live-viewers">
 
-      🔥 {viewers} personas
-      viendo esta dinámica
+  <Activity size={16} />
 
-    </div>
+  <span>
+    {viewers} personas conectadas ahora
+  </span>
+
+</div>
   );
 }
