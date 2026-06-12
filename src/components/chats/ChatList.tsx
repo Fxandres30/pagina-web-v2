@@ -1,141 +1,252 @@
 type Props = {
   chats: string[];
+  messages: any[];
   selected: string;
-  onSelect: (telefono: string) => void;
+  onSelect: (
+    telefono: string
+  ) => void;
 };
 
 export default function ChatList({
   chats,
+  messages,
   selected,
   onSelect
 }: Props) {
+
+  const safeMessages =
+  messages || [];
+
   return (
+
     <div
       style={{
-        width: 320,
-        borderRight: "1px solid #ddd",
+        width: 340,
+        borderRight: "1px solid #e5e7eb",
         background: "#fff",
         display: "flex",
         flexDirection: "column"
       }}
     >
+
       {/* HEADER */}
 
       <div
         style={{
           padding: 20,
-          borderBottom: "1px solid #ddd"
+          borderBottom: "1px solid #e5e7eb"
         }}
       >
+
         <h2
           style={{
-            margin: 0,
-            fontSize: 22
+            margin: 0
           }}
         >
           💬 EFAAT CRM
         </h2>
 
-        <p
+        <div
           style={{
             marginTop: 5,
-            color: "#777",
+            color: "#6b7280",
             fontSize: 14
           }}
         >
           {chats.length} conversaciones
-        </p>
+        </div>
 
         <input
-          placeholder="🔍 Buscar chat..."
+          placeholder="🔍 Buscar..."
           style={{
             width: "100%",
-            padding: 10,
-            marginTop: 10,
-            borderRadius: 8,
-            border: "1px solid #ddd"
+            marginTop: 15,
+            padding: 12,
+            borderRadius: 10,
+            border: "1px solid #ddd",
+            outline: "none"
           }}
         />
+
       </div>
 
       {/* CHATS */}
 
       <div
         style={{
-          overflowY: "auto",
-          flex: 1
+          flex: 1,
+          overflowY: "auto"
         }}
       >
-        {chats.map((telefono) => (
-          <div
-            key={telefono}
-            onClick={() =>
-              onSelect(telefono)
-            }
-            style={{
-              padding: 15,
-              cursor: "pointer",
-              borderBottom:
-                "1px solid #f0f0f0",
 
-              background:
-                selected === telefono
-                  ? "#f5f5f5"
-                  : "#fff"
-            }}
-          >
+        {chats.map((telefono) => {
+
+          const chatMessages =
+            safeMessages.filter(
+              (m) =>
+                m.telefono === telefono
+            );
+
+          const ultimo =
+            chatMessages[
+              chatMessages.length - 1
+            ];
+
+          let preview =
+            ultimo?.mensaje || "";
+
+          if (
+            ultimo?.tipo === "image"
+          ) {
+            preview =
+              "🖼️ Imagen";
+          }
+
+          if (
+            ultimo?.tipo === "audio"
+          ) {
+            preview =
+              "🎤 Audio";
+          }
+
+          if (
+            ultimo?.tipo === "video"
+          ) {
+            preview =
+              "🎥 Video";
+          }
+
+          if (
+            ultimo?.tipo === "sticker"
+          ) {
+            preview =
+              "😀 Sticker";
+          }
+
+          if (
+            ultimo?.tipo === "document"
+          ) {
+            preview =
+              "📄 Documento";
+          }
+
+          return (
+
             <div
+              key={telefono}
+              onClick={() =>
+                onSelect(
+                  telefono
+                )
+              }
               style={{
                 display: "flex",
-                justifyContent:
-                  "space-between"
+                gap: 12,
+                padding: 15,
+                cursor: "pointer",
+                borderBottom:
+                  "1px solid #f3f4f6",
+
+                background:
+                  selected ===
+                  telefono
+                    ? "#f3f4f6"
+                    : "#fff"
               }}
             >
-              <strong>
-                👤 Cliente
-              </strong>
 
-              <span
+              {/* AVATAR */}
+
+              <div
                 style={{
-                  fontSize: 12,
-                  color: "#888"
+                  width: 50,
+                  height: 50,
+                  borderRadius: "50%",
+                  background:
+                    "#22c55e",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent:
+                    "center",
+                  color: "#fff",
+                  fontWeight: "bold"
                 }}
               >
-                Ahora
-              </span>
+                👤
+              </div>
+
+              {/* INFO */}
+
+              <div
+                style={{
+                  flex: 1
+                }}
+              >
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent:
+                      "space-between"
+                  }}
+                >
+
+                  <strong>
+                    {telefono}
+                  </strong>
+
+                  <span
+                    style={{
+                      fontSize: 12,
+                      color:
+                        "#9ca3af"
+                    }}
+                  >
+                    {ultimo?.created_at
+                      ? new Date(
+                          ultimo.created_at
+                        ).toLocaleTimeString(
+                          [],
+                          {
+                            hour: "2-digit",
+                            minute:
+                              "2-digit"
+                          }
+                        )
+                      : ""}
+                  </span>
+
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 5,
+                    color:
+                      "#6b7280",
+                    fontSize: 14,
+                    overflow:
+                      "hidden",
+                    whiteSpace:
+                      "nowrap",
+                    textOverflow:
+                      "ellipsis"
+                  }}
+                >
+                  {preview}
+                </div>
+
+              </div>
+
             </div>
 
-            <div
-              style={{
-                marginTop: 5,
-                fontSize: 14
-              }}
-            >
-              📱 {telefono}
-            </div>
+          );
 
-            <div
-              style={{
-                marginTop: 8,
-                fontSize: 13,
-                color: "#666"
-              }}
-            >
-              Último mensaje...
-            </div>
+        })}
 
-            <div
-              style={{
-                marginTop: 8,
-                fontSize: 12,
-                color: "#22c55e"
-              }}
-            >
-              🟢 Activo
-            </div>
-          </div>
-        ))}
       </div>
+
     </div>
+
   );
+
 }

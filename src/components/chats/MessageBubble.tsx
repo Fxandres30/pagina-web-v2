@@ -1,12 +1,37 @@
 type Props = {
   mensaje: string;
+  tipo?: string;
   fromMe: boolean;
 };
 
 export default function MessageBubble({
   mensaje,
+  tipo = "text",
   fromMe
 }: Props) {
+
+  let contenido = mensaje;
+
+  if (tipo === "image") {
+    contenido = "🖼️ Imagen";
+  }
+
+  if (tipo === "audio") {
+    contenido = "🎤 Audio";
+  }
+
+  if (tipo === "video") {
+    contenido = "🎥 Video";
+  }
+
+  if (tipo === "sticker") {
+    contenido = "😀 Sticker";
+  }
+
+  if (tipo === "document") {
+    contenido = "📄 Documento";
+  }
+
   return (
     <div
       style={{
@@ -20,9 +45,10 @@ export default function MessageBubble({
     >
       <div
         style={{
-          background: fromMe
-            ? "#DCF8C6"
-            : "#FFFFFF",
+          background:
+            fromMe
+              ? "#DCF8C6"
+              : "#FFFFFF",
           padding: "10px 14px",
           borderRadius: 12,
           maxWidth: 400,
@@ -30,7 +56,7 @@ export default function MessageBubble({
             "0 1px 3px rgba(0,0,0,.08)"
         }}
       >
-        {mensaje}
+        {contenido}
       </div>
     </div>
   );

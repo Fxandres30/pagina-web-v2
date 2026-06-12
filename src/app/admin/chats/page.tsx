@@ -8,18 +8,25 @@ import ChatWindow from "@/components/chats/ChatWindow";
 import MessageInput from "@/components/chats/MessageInput";
 
 export default function ChatsPage() {
-  const [messages, setMessages] = useState<any[]>([]);
-  const [selected, setSelected] = useState("");
+
+  const [messages, setMessages] =
+    useState<any[]>([]);
+
+  const [selected, setSelected] =
+    useState("");
 
   async function loadMessages() {
-    const { data } = await supabase
-      .from("messages")
-      .select("*")
-      .order("created_at", {
-        ascending: true,
-      });
+
+    const { data } =
+      await supabase
+        .from("messages")
+        .select("*")
+        .order("created_at", {
+          ascending: true
+        });
 
     setMessages(data || []);
+
   }
 
   useEffect(() => {
@@ -27,28 +34,57 @@ export default function ChatsPage() {
   }, []);
 
   const chats = useMemo(() => {
-    return [...new Set(messages.map((m) => m.telefono))];
+
+    return [
+
+      ...new Set(
+
+        messages.map(
+          (m) => m.telefono
+        )
+
+      )
+
+    ];
+
   }, [messages]);
 
   useEffect(() => {
-    if (chats.length && !selected) {
-      setSelected(chats[0]);
+
+    if (
+      chats.length &&
+      !selected
+    ) {
+
+      setSelected(
+        chats[0]
+      );
+
     }
+
   }, [chats, selected]);
 
-  const currentMessages = messages.filter(
-    (m) => m.telefono === selected
-  );
+  const currentMessages =
+    messages.filter(
+
+      (m) =>
+        m.telefono === selected
+
+    );
 
   return (
+
     <div
       style={{
         height: "100vh",
         display: "flex",
+        background: "#f0f2f5"
       }}
     >
+
       <ChatList
         chats={chats}
+        messages={messages}
         selected={selected}
         onSelect={setSelected}
       />
@@ -57,24 +93,31 @@ export default function ChatsPage() {
         style={{
           flex: 1,
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "column"
         }}
       >
+
         <ChatWindow
-  messages={currentMessages}
-  selected={selected}
-/>
+          messages={currentMessages}
+          selected={selected}
+        />
 
         <MessageInput
           onSend={(texto) => {
+
             console.log(
               "Enviar a:",
               selected,
               texto
             );
+
           }}
         />
+
       </div>
+
     </div>
+
   );
+
 }
