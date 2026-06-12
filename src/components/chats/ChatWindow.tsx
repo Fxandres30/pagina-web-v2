@@ -57,13 +57,14 @@ export default function ChatWindow({
         )}
 
         {messages.map((msg) => (
-          <MessageBubble
-  key={msg.id}
-  mensaje={msg.mensaje}
-  tipo={msg.tipo}
-  fromMe={msg.from_me}
-/>
-        ))}
+  <MessageBubble
+    key={msg.id}
+    mensaje={msg.mensaje}
+    tipo={msg.tipo}
+    media_url={msg.media_url}
+    fromMe={msg.from_me}
+  />
+))}
       </div>
     </div>
   );
