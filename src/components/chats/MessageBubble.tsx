@@ -54,18 +54,41 @@ export default function MessageBubble({
         )}
 
         {tipo === "image" &&
-          media_url && (
+  media_url && (
 
-          <img
-            src={media_url}
-            alt="imagen"
-            style={{
-              maxWidth: 300,
-              borderRadius: 10
-            }}
-          />
+  <>
+    <img
+      src={media_url}
+      alt="imagen"
+      style={{
+        maxWidth: 300,
+        borderRadius: 10
+      }}
+      onError={() =>
+        console.log(
+          "ERROR IMG",
+          media_url
+        )
+      }
+      onLoad={() =>
+        console.log(
+          "LOAD IMG",
+          media_url
+        )
+      }
+    />
 
-        )}
+    <div
+      style={{
+        fontSize: 10
+      }}
+    >
+      {media_url}
+    </div>
+
+  </>
+
+)}
 
         {tipo === "sticker" &&
           media_url && (
