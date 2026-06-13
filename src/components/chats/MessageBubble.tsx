@@ -2,6 +2,7 @@ type Props = {
   mensaje: string;
   tipo?: string;
   media_url?: string | null;
+  media_id?: string | null;
   fromMe: boolean;
 };
 
@@ -9,6 +10,7 @@ export default function MessageBubble({
   mensaje,
   tipo = "text",
   media_url,
+  media_id,
   fromMe
 }: Props) {
 
@@ -53,12 +55,13 @@ export default function MessageBubble({
           </div>
         )}
 
-        {tipo === "image" &&
-  media_url && (
+       
+{tipo === "image" &&
+  media_id && (
 
   <>
     <img
-      src={media_url}
+      src={`http://209.38.77.179:3001/media/${media_id}`}
       alt="imagen"
       style={{
         maxWidth: 300,
@@ -67,13 +70,13 @@ export default function MessageBubble({
       onError={() =>
         console.log(
           "ERROR IMG",
-          media_url
+          media_id
         )
       }
       onLoad={() =>
         console.log(
           "LOAD IMG",
-          media_url
+          media_id
         )
       }
     />
@@ -83,7 +86,7 @@ export default function MessageBubble({
         fontSize: 10
       }}
     >
-      {media_url}
+      {media_id}
     </div>
 
   </>
