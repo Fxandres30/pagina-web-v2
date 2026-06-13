@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type Props = {
   onSend: (
-    mensaje: string
+    mensaje: string,
+    file?: File | null
   ) => void;
 };
 
@@ -15,14 +16,35 @@ export default function MessageInput({
   const [mensaje, setMensaje] =
     useState("");
 
+  const [archivo, setArchivo] =
+    useState<File | null>(null);
+
+  const fileInputRef =
+    useRef<HTMLInputElement>(null);
+
   const enviar = () => {
 
-    if (!mensaje.trim())
+    if (
+      !mensaje.trim() &&
+      !archivo
+    ) {
       return;
+    }
 
-    onSend(mensaje);
+    onSend(
+      mensaje,
+      archivo
+    );
 
     setMensaje("");
+    setArchivo(null);
+
+    if (
+      fileInputRef.current
+    ) {
+      fileInputRef.current.value =
+        "";
+    }
 
   };
 
@@ -33,68 +55,79 @@ export default function MessageInput({
         padding: 12,
         background: "#f0f2f5",
         borderTop:
-          "1px solid #ddd",
-        display: "flex",
-        gap: 10,
-        alignItems: "center"
+          "1px solid #ddd"
       }}
     >
 
-      <input
+      {archivo && (
 
-        value={mensaje}
+        <div
+          style={{
+            marginBottom: 8,
+            padding: 8,
+            background: "#fff",
+            borderRadius: 8
+          }}
+        >
+          📎 {archivo.name}
+        </div>
 
-        onChange={(e) =>
-          setMensaje(
-            e.target.value
-          )
-        }
+      )}
 
-        onKeyDown={(e) => {
-
-          if (
-            e.key === "Enter"
-          ) {
-            enviar();
-          }
-
-        }}
-
-        placeholder="Escribe un mensaje..."
-
+      <div
         style={{
-          flex: 1,
-          padding: 12,
-          borderRadius: 25,
-          border:
-            "1px solid #ddd",
-          outline: "none",
-          fontSize: 14
+          display: "flex",
+          gap: 10,
+          alignItems: "center"
         }}
-
-      />
-
-      <button
-
-        onClick={enviar}
-
-        style={{
-          background:
-            "#25D366",
-          color: "#fff",
-          border: "none",
-          borderRadius: 25,
-          padding:
-            "12px 20px",
-          cursor: "pointer",
-          fontWeight: 600
-        }}
-
       >
 
-        Enviar
+        <button
+          onClick={() =>
+            fileInputRef.current?.click()
+          }
+        >
+          📎
+        </button>
 
-      </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          hidden
+          onChange={(e) => {
+
+            const file =
+              e.target.files?.[0];
+
+            if (file) {
+
+              setArchivo(file);
+
+            }
+
+          }}
+        />
+
+        <input
+          value={mensaje}
+          onChange={(e) =>
+            setMensaje(
+              e.target.value
+            )
+          }
+          placeholder="Escribe un mensaje..."
+          style={{
+            flex: 1
+          }}
+        />
+
+        <button
+          onClick={enviar}
+        >
+          Enviar
+        </button>
+
+      </div>
 
     </div>
 

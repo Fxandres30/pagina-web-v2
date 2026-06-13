@@ -103,44 +103,71 @@ export default function ChatsPage() {
         />
 
         <MessageInput
-  onSend={async (texto) => {
+
+  onSend={async (
+    texto,
+    archivo
+  ) => {
 
     try {
 
-      const response =
-        await fetch(
+      if (archivo) {
 
-          "https://efaat.com/meta/send-message",
+        const formData =
+          new FormData();
 
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body: JSON.stringify({
-
-              telefono:
-                selected,
-
-              mensaje:
-                texto
-
-            })
-
-          }
-
+        formData.append(
+          "file",
+          archivo
         );
 
-      const result =
+        formData.append(
+          "telefono",
+          selected
+        );
+
+        formData.append(
+          "mensaje",
+          texto || ""
+        );
+
+        const response =
+          await fetch(
+            "https://efaat.com/meta/send-media",
+            {
+              method: "POST",
+              body: formData
+            }
+          );
+
+        const result =
+          await response.json();
+
+        console.log(result);
+
+      }
+
+      else {
+
+        const response =
+          await fetch(
+            "https://efaat.com/meta/send-message",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+              body: JSON.stringify({
+                telefono: selected,
+                mensaje: texto
+              })
+            }
+          );
+
         await response.json();
 
-      console.log(
-        "ENVIADO:",
-        result
-      );
+      }
 
       await loadMessages();
 
@@ -148,14 +175,12 @@ export default function ChatsPage() {
 
     catch (err) {
 
-      console.log(
-        "ERROR:",
-        err
-      );
+      console.log(err);
 
     }
 
   }}
+
 />
 
       </div>
