@@ -1,0 +1,106 @@
+.message-container {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.message-left {
+  justify-content: flex-start;
+}
+
+.message-right {
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  max-width: 420px;
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+
+.message-me {
+  background: #d9fdd3;
+  color: #111;
+}
+
+.message-other {
+  background: #202c33;
+  color: #e9edef;
+}
+
+.message-text {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.media-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message-image,
+.message-video {
+  width: 100%;
+  max-width: 320px;
+  display: block;
+  border-radius: 10px;
+}
+
+.message-image {
+  cursor: pointer;
+}
+
+.message-sticker {
+  width: 100%;
+  max-width: 220px;
+  display: block;
+}
+
+.message-audio {
+  width: 280px;
+  max-width: 100%;
+}
+
+.media-caption {
+  padding: 0 4px 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.message-document {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px;
+
+  background: #f3f4f6;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  color: #111827;
+
+  font-weight: 600;
+}
+
+.message-document:hover {
+  opacity: .9;
+}
+
+@media (max-width: 768px) {
+
+  .message-bubble {
+    max-width: 85%;
+  }
+
+  .message-image,
+  .message-video {
+    max-width: 100%;
+  }
+
+}

@@ -1,3 +1,5 @@
+import "./ChatList.css";
+
 type Props = {
   chats: string[];
   messages: any[];
@@ -15,74 +17,30 @@ export default function ChatList({
 }: Props) {
 
   const safeMessages =
-  messages || [];
+    messages || [];
 
   return (
 
-    <div
-      style={{
-        width: 340,
-        borderRight: "1px solid #e5e7eb",
-        background: "#fff",
-        display: "flex",
-        flexDirection: "column"
-      }}
-    >
+    <div className="chat-list">
 
-      {/* HEADER */}
+      <div className="chat-list-header">
 
-      <div
-  style={{
-    padding: 16,
-    background: "#202c33",
-    borderBottom: "1px solid #2a3942"
-  }}
->
+        <h2 className="chat-list-title">
+          EFAAT CRM
+        </h2>
 
-  <h2
-    style={{
-      margin: 0,
-      color: "#e9edef",
-      fontSize: 22
-    }}
-  >
-    EFAAT CRM
-  </h2>
+        <div className="chat-list-count">
+          {chats.length} conversaciones
+        </div>
 
-  <div
-    style={{
-      marginTop: 4,
-      color: "#8696a0",
-      fontSize: 13
-    }}
-  >
-    {chats.length} conversaciones
-  </div>
+        <input
+          className="chat-search"
+          placeholder="Buscar chat..."
+        />
 
-  <input
-    placeholder="Buscar chat..."
-    style={{
-      width: "100%",
-      marginTop: 14,
-      padding: "12px 14px",
-      borderRadius: 8,
-      border: "none",
-      background: "#2a3942",
-      color: "#fff",
-      outline: "none"
-    }}
-  />
+      </div>
 
-</div>
-
-      {/* CHATS */}
-
-      <div
-        style={{
-          flex: 1,
-          overflowY: "auto"
-        }}
-      >
+      <div className="chat-list-body">
 
         {chats.map((telefono) => {
 
@@ -140,74 +98,29 @@ export default function ChatList({
             <div
               key={telefono}
               onClick={() =>
-                onSelect(
-                  telefono
-                )
+                onSelect(telefono)
               }
-              style={{
-                display: "flex",
-                gap: 12,
-                padding: 15,
-                cursor: "pointer",
-                borderBottom:
-                  "1px solid #f3f4f6",
-
-                background:
-  selected === telefono
-    ? "#2a3942"
-    : "#111b21"
-              }}
+              className={`chat-item ${
+                selected === telefono
+                  ? "active"
+                  : ""
+              }`}
             >
 
-              {/* AVATAR */}
-<div
-  style={{
-    width: 50,
-    height: 50,
-    borderRadius: "50%",
-    background: "#00a884",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#fff",
-    fontSize: 22,
-    flexShrink: 0
-  }}
->
-  👤
-</div>
+              <div className="chat-avatar">
+                👤
+              </div>
 
-              {/* INFO */}
+              <div className="chat-info">
 
-              <div
-                style={{
-                  flex: 1
-                }}
-              >
+                <div className="chat-top">
 
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent:
-                      "space-between"
-                  }}
-                >
+                  <strong className="chat-phone">
+                    {telefono}
+                  </strong>
 
-                  <strong
-  style={{
-    color: "#e9edef",
-    fontSize: 15
-  }}
->
-  {telefono}
-</strong>
+                  <span className="chat-time">
 
-                  <span
-                    style={{
-                      fontSize: 12,
-                      color: "#8696a0"
-                    }}
-                  >
                     {ultimo?.created_at
                       ? new Date(
                           ultimo.created_at
@@ -220,23 +133,12 @@ export default function ChatList({
                           }
                         )
                       : ""}
+
                   </span>
 
                 </div>
 
-                <div
-                  style={{
-                    marginTop: 5,
-                    color: "#8696a0",
-                    fontSize: 14,
-                    overflow:
-                      "hidden",
-                    whiteSpace:
-                      "nowrap",
-                    textOverflow:
-                      "ellipsis"
-                  }}
-                >
+                <div className="chat-preview">
                   {preview}
                 </div>
 

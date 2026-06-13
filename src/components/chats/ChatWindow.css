@@ -1,0 +1,70 @@
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+
+  background: #0b141a;
+}
+
+.chat-header {
+  height: 70px;
+  min-height: 70px;
+
+  background: #202c33;
+
+  border-bottom: 1px solid #2a3942;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 20px;
+
+  color: #e9edef;
+
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.chat-messages {
+  flex: 1;
+
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 20px;
+
+  background-image:
+    url("https://i.imgur.com/Yqz6F4N.png");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #54656f;
+  border-radius: 20px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #6b7c85;
+}
+
+.empty-chat {
+  text-align: center;
+  margin-top: 100px;
+  color: #8696a0;
+}

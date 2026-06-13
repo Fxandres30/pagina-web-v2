@@ -1,0 +1,128 @@
+.message-input-container {
+
+  background: #202c33;
+
+  border-top: 1px solid #2a3942;
+
+  padding: 12px;
+
+  flex-shrink: 0;
+}
+
+.file-preview {
+
+  background: #2a3942;
+
+  color: #e9edef;
+
+  padding: 10px 14px;
+
+  border-radius: 10px;
+
+  margin-bottom: 10px;
+
+  font-size: 14px;
+}
+
+.message-input-row {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.attach-button {
+
+  width: 42px;
+
+  height: 42px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: #8696a0;
+
+  cursor: pointer;
+
+  font-size: 22px;
+
+  transition: .2s;
+}
+
+.attach-button:hover {
+
+  background: #2a3942;
+}
+
+.message-input {
+
+  flex: 1;
+
+  height: 44px;
+
+  border: none;
+
+  outline: none;
+
+  border-radius: 24px;
+
+  padding: 0 16px;
+
+  background: #2a3942;
+
+  color: #fff;
+
+  font-size: 14px;
+}
+
+.message-input::placeholder {
+
+  color: #8696a0;
+}
+
+.send-button {
+
+  width: 44px;
+
+  height: 44px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #00a884;
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  transition: .2s;
+}
+
+.send-button:hover {
+
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+
+  .message-input-container {
+
+    padding: 8px;
+  }
+
+  .message-input {
+
+    font-size: 16px;
+  }
+
+}

@@ -1,5 +1,7 @@
 "use client";
 
+import "./page.css";
+
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
@@ -36,15 +38,11 @@ export default function ChatsPage() {
   const chats = useMemo(() => {
 
     return [
-
       ...new Set(
-
         messages.map(
           (m) => m.telefono
         )
-
       )
-
     ];
 
   }, [messages]);
@@ -55,32 +53,22 @@ export default function ChatsPage() {
       chats.length &&
       !selected
     ) {
-
       setSelected(
         chats[0]
       );
-
     }
 
   }, [chats, selected]);
 
   const currentMessages =
     messages.filter(
-
       (m) =>
         m.telefono === selected
-
     );
 
   return (
 
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        background: "#f0f2f5"
-      }}
-    >
+    <div className="crm-container">
 
       <ChatList
         chats={chats}
@@ -89,17 +77,7 @@ export default function ChatsPage() {
         onSelect={setSelected}
       />
 
-      <div
-  style={{
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-
-    height: "100vh",
-    overflow: "hidden",
-    minHeight: 0
-  }}
->
+      <div className="chat-area">
 
         <ChatWindow
           messages={currentMessages}
@@ -108,84 +86,84 @@ export default function ChatsPage() {
 
         <MessageInput
 
-  onSend={async (
-    texto,
-    archivo
-  ) => {
+          onSend={async (
+            texto,
+            archivo
+          ) => {
 
-    try {
+            try {
 
-      if (archivo) {
+              if (archivo) {
 
-        const formData =
-          new FormData();
+                const formData =
+                  new FormData();
 
-        formData.append(
-          "file",
-          archivo
-        );
+                formData.append(
+                  "file",
+                  archivo
+                );
 
-        formData.append(
-          "telefono",
-          selected
-        );
+                formData.append(
+                  "telefono",
+                  selected
+                );
 
-        formData.append(
-          "mensaje",
-          texto || ""
-        );
+                formData.append(
+                  "mensaje",
+                  texto || ""
+                );
 
-        const response =
-          await fetch(
-            "https://efaat.com/meta/send-media",
-            {
-              method: "POST",
-              body: formData
+                const response =
+                  await fetch(
+                    "https://efaat.com/meta/send-media",
+                    {
+                      method: "POST",
+                      body: formData
+                    }
+                  );
+
+                const result =
+                  await response.json();
+
+                console.log(result);
+
+              }
+
+              else {
+
+                const response =
+                  await fetch(
+                    "https://efaat.com/meta/send-message",
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type":
+                          "application/json"
+                      },
+                      body: JSON.stringify({
+                        telefono: selected,
+                        mensaje: texto
+                      })
+                    }
+                  );
+
+                await response.json();
+
+              }
+
+              await loadMessages();
+
             }
-          );
 
-        const result =
-          await response.json();
+            catch (err) {
 
-        console.log(result);
+              console.log(err);
 
-      }
-
-      else {
-
-        const response =
-          await fetch(
-            "https://efaat.com/meta/send-message",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
-              body: JSON.stringify({
-                telefono: selected,
-                mensaje: texto
-              })
             }
-          );
 
-        await response.json();
+          }}
 
-      }
-
-      await loadMessages();
-
-    }
-
-    catch (err) {
-
-      console.log(err);
-
-    }
-
-  }}
-
-/>
+        />
 
       </div>
 

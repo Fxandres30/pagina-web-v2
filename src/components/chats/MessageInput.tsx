@@ -1,5 +1,7 @@
 "use client";
 
+import "./MessageInput.css";
+
 import { useRef, useState } from "react";
 
 type Props = {
@@ -50,39 +52,24 @@ export default function MessageInput({
 
   return (
 
-    <div
-      style={{
-        padding: 12,
-        background: "#f0f2f5",
-        borderTop:
-          "1px solid #ddd"
-      }}
-    >
+    <div className="message-input-container">
 
       {archivo && (
 
-        <div
-          style={{
-            marginBottom: 8,
-            padding: 8,
-            background: "#fff",
-            borderRadius: 8
-          }}
-        >
-          📎 {archivo.name}
+        <div className="file-preview">
+
+          <span>
+            📎 {archivo.name}
+          </span>
+
         </div>
 
       )}
 
-      <div
-        style={{
-          display: "flex",
-          gap: 10,
-          alignItems: "center"
-        }}
-      >
+      <div className="message-input-row">
 
         <button
+          className="attach-button"
           onClick={() =>
             fileInputRef.current?.click()
           }
@@ -100,9 +87,7 @@ export default function MessageInput({
               e.target.files?.[0];
 
             if (file) {
-
               setArchivo(file);
-
             }
 
           }}
@@ -116,15 +101,23 @@ export default function MessageInput({
             )
           }
           placeholder="Escribe un mensaje..."
-          style={{
-            flex: 1
+          className="message-input"
+          onKeyDown={(e) => {
+
+            if (
+              e.key === "Enter"
+            ) {
+              enviar();
+            }
+
           }}
         />
 
         <button
+          className="send-button"
           onClick={enviar}
         >
-          Enviar
+          ➤
         </button>
 
       </div>
