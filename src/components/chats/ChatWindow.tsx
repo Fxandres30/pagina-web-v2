@@ -1,3 +1,5 @@
+"use client";
+
 import "./ChatWindow.css";
 import { useEffect, useRef } from "react";
 import MessageBubble from "./MessageBubble";
@@ -5,11 +7,13 @@ import MessageBubble from "./MessageBubble";
 type Props = {
   messages: any[];
   selected?: string;
+  onBack?: () => void;
 };
 
 export default function ChatWindow({
   messages,
-  selected
+  selected,
+  onBack
 }: Props) {
 
   const bottomRef =
@@ -28,7 +32,37 @@ export default function ChatWindow({
     <div className="chat-window">
 
       <div className="chat-header">
-        📱 {selected || "Selecciona un chat"}
+
+        <button
+          className="back-button"
+          onClick={onBack}
+        >
+          ←
+        </button>
+
+        <div className="chat-header-avatar">
+
+          {selected
+            ? selected.slice(-2)
+            : "💬"}
+
+        </div>
+
+        <div className="chat-header-info">
+
+          <div className="chat-header-phone">
+
+            {selected ||
+              "Selecciona un chat"}
+
+          </div>
+
+          <div className="chat-header-status">
+            WhatsApp Business
+          </div>
+
+        </div>
+
       </div>
 
       <div className="chat-messages">

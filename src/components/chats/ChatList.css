@@ -1,6 +1,7 @@
 .chat-list {
   width: 340px;
   min-width: 340px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: #111b21;
@@ -17,6 +18,7 @@
   margin: 0;
   color: #e9edef;
   font-size: 22px;
+  font-weight: 600;
 }
 
 .chat-list-count {
@@ -29,11 +31,13 @@
   width: 100%;
   margin-top: 14px;
   padding: 12px 14px;
-  border-radius: 8px;
   border: none;
   outline: none;
+  border-radius: 10px;
   background: #2a3942;
-  color: #fff;
+  color: white;
+  box-sizing: border-box;
+  font-size: 14px;
 }
 
 .chat-search::placeholder {
@@ -46,7 +50,7 @@
 }
 
 .chat-list-body::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .chat-list-body::-webkit-scrollbar-thumb {
@@ -56,11 +60,12 @@
 
 .chat-item {
   display: flex;
+  align-items: center;
   gap: 12px;
-  padding: 15px;
+  padding: 14px;
   cursor: pointer;
   border-bottom: 1px solid #1f2c33;
-  transition: background .15s;
+  transition: background .15s ease;
 }
 
 .chat-item:hover {
@@ -72,15 +77,17 @@
 }
 
 .chat-avatar {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
   border-radius: 50%;
   background: #00a884;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .chat-info {
@@ -97,29 +104,58 @@
 .chat-phone {
   color: #e9edef;
   font-size: 15px;
+  font-weight: 600;
 }
 
 .chat-time {
   font-size: 12px;
   color: #8696a0;
+  flex-shrink: 0;
+  margin-left: 10px;
 }
 
 .chat-preview {
   margin-top: 5px;
   color: #8696a0;
-  font-size: 14px;
+  font-size: 13px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* móvil */
+@media (max-width: 1024px) {
+
+  .chat-list {
+    width: 300px;
+    min-width: 300px;
+  }
+
+}
 
 @media (max-width: 768px) {
 
   .chat-list {
     width: 100%;
     min-width: 100%;
+    border-right: none;
+  }
+
+  .chat-list-title {
+    font-size: 20px;
+  }
+
+  .chat-avatar {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+  }
+
+  .chat-phone {
+    font-size: 14px;
+  }
+
+  .chat-preview {
+    font-size: 12px;
   }
 
 }

@@ -17,15 +17,22 @@ export default function ChatsPage() {
   const [selected, setSelected] =
     useState("");
 
+    const [mobileChatOpen,
+  setMobileChatOpen] =
+  useState(false);
+
   async function loadMessages() {
 
     const { data } =
       await supabase
         .from("messages")
         .select("*")
-        .order("created_at", {
-          ascending: true
-        });
+        .order(
+          "created_at",
+          {
+            ascending: true
+          }
+        );
 
     setMessages(data || []);
 
@@ -37,13 +44,43 @@ export default function ChatsPage() {
 
   const chats = useMemo(() => {
 
-    return [
+    const telefonos = [
       ...new Set(
         messages.map(
           (m) => m.telefono
         )
       )
     ];
+
+    return telefonos.sort(
+      (a, b) => {
+
+        const ultimoA =
+          messages
+            .filter(
+              m => m.telefono === a
+            )
+            .at(-1);
+
+        const ultimoB =
+          messages
+            .filter(
+              m => m.telefono === b
+            )
+            .at(-1);
+
+        return (
+          new Date(
+            ultimoB?.created_at || 0
+          ).getTime()
+          -
+          new Date(
+            ultimoA?.created_at || 0
+          ).getTime()
+        );
+
+      }
+    );
 
   }, [messages]);
 
@@ -53,16 +90,18 @@ export default function ChatsPage() {
       chats.length &&
       !selected
     ) {
+
       setSelected(
         chats[0]
       );
+
     }
 
   }, [chats, selected]);
 
   const currentMessages =
     messages.filter(
-      (m) =>
+      m =>
         m.telefono === selected
     );
 
@@ -70,19 +109,43 @@ export default function ChatsPage() {
 
     <div className="crm-container">
 
-      <ChatList
-        chats={chats}
-        messages={messages}
-        selected={selected}
-        onSelect={setSelected}
-      />
+      <div
+  className={
+    mobileChatOpen
+      ? "hide-mobile"
+      : ""
+  }
+>
 
+  <ChatList
+    chats={chats}
+    messages={messages}
+    selected={selected}
+    onSelect={(telefono) => {
+
+      setSelected(
+        telefono
+      );
+
+      setMobileChatOpen(
+        true
+      );
+
+    }}
+  />
+
+</div>
       <div className="chat-area">
 
         <ChatWindow
-          messages={currentMessages}
-          selected={selected}
-        />
+  messages={currentMessages}
+  selected={selected}
+  onBack={() =>
+    setMobileChatOpen(
+      false
+    )
+  }
+/>
 
         <MessageInput
 
@@ -113,41 +176,32 @@ export default function ChatsPage() {
                   texto || ""
                 );
 
-                const response =
-                  await fetch(
-                    "https://efaat.com/meta/send-media",
-                    {
-                      method: "POST",
-                      body: formData
-                    }
-                  );
-
-                const result =
-                  await response.json();
-
-                console.log(result);
+                await fetch(
+                  "https://efaat.com/meta/send-media",
+                  {
+                    method: "POST",
+                    body: formData
+                  }
+                );
 
               }
 
               else {
 
-                const response =
-                  await fetch(
-                    "https://efaat.com/meta/send-message",
-                    {
-                      method: "POST",
-                      headers: {
-                        "Content-Type":
-                          "application/json"
-                      },
-                      body: JSON.stringify({
-                        telefono: selected,
-                        mensaje: texto
-                      })
-                    }
-                  );
-
-                await response.json();
+                await fetch(
+                  "https://efaat.com/meta/send-message",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type":
+                        "application/json"
+                    },
+                    body: JSON.stringify({
+                      telefono: selected,
+                      mensaje: texto
+                    })
+                  }
+                );
 
               }
 
@@ -157,7 +211,7 @@ export default function ChatsPage() {
 
             catch (err) {
 
-              console.log(err);
+              console.error(err);
 
             }
 
