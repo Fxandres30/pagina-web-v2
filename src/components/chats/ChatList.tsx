@@ -32,43 +32,48 @@ export default function ChatList({
       {/* HEADER */}
 
       <div
-        style={{
-          padding: 20,
-          borderBottom: "1px solid #e5e7eb"
-        }}
-      >
+  style={{
+    padding: 16,
+    background: "#202c33",
+    borderBottom: "1px solid #2a3942"
+  }}
+>
 
-        <h2
-          style={{
-            margin: 0
-          }}
-        >
-          💬 EFAAT CRM
-        </h2>
+  <h2
+    style={{
+      margin: 0,
+      color: "#e9edef",
+      fontSize: 22
+    }}
+  >
+    EFAAT CRM
+  </h2>
 
-        <div
-          style={{
-            marginTop: 5,
-            color: "#6b7280",
-            fontSize: 14
-          }}
-        >
-          {chats.length} conversaciones
-        </div>
+  <div
+    style={{
+      marginTop: 4,
+      color: "#8696a0",
+      fontSize: 13
+    }}
+  >
+    {chats.length} conversaciones
+  </div>
 
-        <input
-          placeholder="🔍 Buscar..."
-          style={{
-            width: "100%",
-            marginTop: 15,
-            padding: 12,
-            borderRadius: 10,
-            border: "1px solid #ddd",
-            outline: "none"
-          }}
-        />
+  <input
+    placeholder="Buscar chat..."
+    style={{
+      width: "100%",
+      marginTop: 14,
+      padding: "12px 14px",
+      borderRadius: 8,
+      border: "none",
+      background: "#2a3942",
+      color: "#fff",
+      outline: "none"
+    }}
+  />
 
-      </div>
+</div>
 
       {/* CHATS */}
 
@@ -148,32 +153,29 @@ export default function ChatList({
                   "1px solid #f3f4f6",
 
                 background:
-                  selected ===
-                  telefono
-                    ? "#f3f4f6"
-                    : "#fff"
+  selected === telefono
+    ? "#2a3942"
+    : "#111b21"
               }}
             >
 
               {/* AVATAR */}
-
-              <div
-                style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: "50%",
-                  background:
-                    "#22c55e",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent:
-                    "center",
-                  color: "#fff",
-                  fontWeight: "bold"
-                }}
-              >
-                👤
-              </div>
+<div
+  style={{
+    width: 50,
+    height: 50,
+    borderRadius: "50%",
+    background: "#00a884",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#fff",
+    fontSize: 22,
+    flexShrink: 0
+  }}
+>
+  👤
+</div>
 
               {/* INFO */}
 
@@ -191,15 +193,19 @@ export default function ChatList({
                   }}
                 >
 
-                  <strong>
-                    {telefono}
-                  </strong>
+                  <strong
+  style={{
+    color: "#e9edef",
+    fontSize: 15
+  }}
+>
+  {telefono}
+</strong>
 
                   <span
                     style={{
                       fontSize: 12,
-                      color:
-                        "#9ca3af"
+                      color: "#8696a0"
                     }}
                   >
                     {ultimo?.created_at
@@ -221,8 +227,7 @@ export default function ChatList({
                 <div
                   style={{
                     marginTop: 5,
-                    color:
-                      "#6b7280",
+                    color: "#8696a0",
                     fontSize: 14,
                     overflow:
                       "hidden",

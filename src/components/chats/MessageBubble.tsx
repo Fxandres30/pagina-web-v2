@@ -13,18 +13,32 @@ const containerStyle = (fromMe: boolean) => ({
 });
 
 const bubbleStyle = (fromMe: boolean) => ({
-  background: fromMe ? "#d9fdd3" : "#ffffff",
-  padding: 8,
+  background:
+    fromMe
+      ? "#d9fdd3"
+      : "#202c33",
+
+  color:
+    fromMe
+      ? "#111"
+      : "#e9edef",
+
+  padding: 6,
+
   borderRadius: 12,
+
   maxWidth: 420,
-  boxShadow: "0 1px 2px rgba(0,0,0,.12)",
-  overflowWrap: "break-word" as const,
+
+  boxShadow:
+    "0 1px 2px rgba(0,0,0,.25)"
 });
 
 const mediaStyle = {
-  borderRadius: 12,
+  borderRadius: 10,
   maxWidth: 320,
   display: "block",
+  width: "100%",
+  objectFit: "cover" as const
 };
 
 export default function MessageBubble({
@@ -57,16 +71,40 @@ export default function MessageBubble({
           </p>
         )}
 
-        {tipo === "image" && media_id && (
-  <img
-    src={mediaSrc}
-    alt="Imagen"
+       {tipo === "image" && media_id && (
+
+  <div
     style={{
-      ...mediaStyle,
-      cursor: "pointer"
+      display: "flex",
+      flexDirection: "column",
+      gap: 8
     }}
-    loading="lazy"
-  />
+  >
+
+    <img
+      src={mediaSrc}
+      alt="Imagen"
+      style={mediaStyle}
+      loading="lazy"
+    />
+
+    {mensaje && (
+
+      <div
+        style={{
+          padding: "0 4px 4px",
+          fontSize: 14,
+          color: "#111827",
+          lineHeight: 1.4
+        }}
+      >
+        {mensaje}
+      </div>
+
+    )}
+
+  </div>
+
 )}
 
 {tipo === "sticker" && media_id && (
@@ -74,9 +112,11 @@ export default function MessageBubble({
     src={mediaSrc}
     alt="Sticker"
     style={{
-      width: 180,
-      display: "block"
-    }}
+  width: "100%",
+  maxWidth: 320,
+  borderRadius: 10,
+  display: "block"
+}}
     loading="lazy"
   />
 )}
@@ -93,15 +133,36 @@ export default function MessageBubble({
 )}
 
 {tipo === "video" && media_id && (
-  <video
-    controls
-    src={mediaSrc}
-    style={{
-      maxWidth: 320,
-      borderRadius: 12,
-      display: "block"
-    }}
-  />
+
+  <div>
+
+    <video
+      controls
+      src={mediaSrc}
+      style={{
+        maxWidth: 320,
+        borderRadius: 12,
+        display: "block"
+      }}
+    />
+
+    {mensaje && (
+
+      <p
+        style={{
+  width: "100%",
+  maxWidth: 320,
+  borderRadius: 10,
+  display: "block"
+}}
+      >
+        {mensaje}
+      </p>
+
+    )}
+
+  </div>
+
 )}
 
         {tipo === "document" && media_url && (
@@ -110,14 +171,16 @@ export default function MessageBubble({
     target="_blank"
     rel="noopener noreferrer"
     style={{
-      display: "inline-block",
-      padding: "10px 14px",
-      background: "#f3f4f6",
-      borderRadius: 10,
-      textDecoration: "none",
-      color: "#111827",
-      fontWeight: 600
-    }}
+  display: "flex",
+  alignItems: "center",
+  gap: 10,
+  padding: 12,
+  background: "#F3F4F6",
+  borderRadius: 10,
+  textDecoration: "none",
+  color: "#111827",
+  fontWeight: 600
+}}
   >
     📄 Abrir documento
   </a>

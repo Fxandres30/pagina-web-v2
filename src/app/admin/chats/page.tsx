@@ -90,12 +90,16 @@ export default function ChatsPage() {
       />
 
       <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column"
-        }}
-      >
+  style={{
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+
+    height: "100vh",
+    overflow: "hidden",
+    minHeight: 0
+  }}
+>
 
         <ChatWindow
           messages={currentMessages}
