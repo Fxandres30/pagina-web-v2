@@ -135,8 +135,13 @@ export default function ChatsPage() {
   />
 
 </div>
-      <div className="chat-area">
-
+      <div
+  className={`chat-area ${
+    mobileChatOpen
+      ? "show-mobile"
+      : ""
+  }`}
+>
         <ChatWindow
   messages={currentMessages}
   selected={selected}
