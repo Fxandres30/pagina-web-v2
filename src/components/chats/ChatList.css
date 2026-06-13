@@ -6,6 +6,8 @@
   flex-direction: column;
   background: #111b21;
   border-right: 1px solid #2a3942;
+
+  overflow: hidden; /* AGREGAR */
 }
 
 .chat-list-header {
@@ -47,6 +49,8 @@
 .chat-list-body {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0; /* AGREGAR */
 }
 
 .chat-list-body::-webkit-scrollbar {
@@ -134,10 +138,16 @@
 
 @media (max-width: 768px) {
 
+  
   .chat-list {
     width: 100%;
     min-width: 100%;
-    border-right: none;
+    height: 100dvh;
+  }
+
+  .chat-list-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .chat-list-title {
