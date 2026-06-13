@@ -9,21 +9,21 @@ type Props = {
 const containerStyle = (fromMe: boolean) => ({
   display: "flex",
   justifyContent: fromMe ? "flex-end" : "flex-start",
-  marginBottom: 12,
+  marginBottom: 10,
 });
 
 const bubbleStyle = (fromMe: boolean) => ({
-  background: fromMe ? "#DCF8C6" : "#FFFFFF",
-  padding: 12,
-  borderRadius: 16,
-  maxWidth: 400,
-  boxShadow: "0 1px 3px rgba(0,0,0,.12)",
-  overflowWrap: "break-word" as const,// evita que textos largos rompan diseño
+  background: fromMe ? "#d9fdd3" : "#ffffff",
+  padding: 8,
+  borderRadius: 12,
+  maxWidth: 420,
+  boxShadow: "0 1px 2px rgba(0,0,0,.12)",
+  overflowWrap: "break-word" as const,
 });
 
 const mediaStyle = {
-  borderRadius: 10,
-  maxWidth: 300,
+  borderRadius: 12,
+  maxWidth: 320,
   display: "block",
 };
 
@@ -60,8 +60,11 @@ export default function MessageBubble({
         {tipo === "image" && media_id && (
   <img
     src={mediaSrc}
-    alt={mensaje || "Imagen"}
-    style={mediaStyle}
+    alt="Imagen"
+    style={{
+      ...mediaStyle,
+      cursor: "pointer"
+    }}
     loading="lazy"
   />
 )}
@@ -71,8 +74,7 @@ export default function MessageBubble({
     src={mediaSrc}
     alt="Sticker"
     style={{
-      width: 150,
-      borderRadius: 10,
+      width: 180,
       display: "block"
     }}
     loading="lazy"
@@ -84,7 +86,8 @@ export default function MessageBubble({
     controls
     src={mediaSrc}
     style={{
-      width: "100%"
+      width: 280,
+      display: "block"
     }}
   />
 )}
@@ -94,17 +97,31 @@ export default function MessageBubble({
     controls
     src={mediaSrc}
     style={{
-      maxWidth: 300,
-      borderRadius: 10
+      maxWidth: 320,
+      borderRadius: 12,
+      display: "block"
     }}
   />
 )}
 
         {tipo === "document" && media_url && (
-          <a href={media_url} target="_blank" rel="noopener noreferrer" style={{ color: "#0066cc", textDecoration: "underline" }}>
-            📄 Abrir documento
-          </a>
-        )}
+  <a
+    href={media_url}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      display: "inline-block",
+      padding: "10px 14px",
+      background: "#f3f4f6",
+      borderRadius: 10,
+      textDecoration: "none",
+      color: "#111827",
+      fontWeight: 600
+    }}
+  >
+    📄 Abrir documento
+  </a>
+)}
 
       </div>
 

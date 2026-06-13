@@ -103,16 +103,60 @@ export default function ChatsPage() {
         />
 
         <MessageInput
-          onSend={(texto) => {
+  onSend={async (texto) => {
 
-            console.log(
-              "Enviar a:",
-              selected,
-              texto
-            );
+    try {
 
-          }}
-        />
+      const response =
+        await fetch(
+
+          "https://efaat.com/meta/send-message",
+
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+
+              telefono:
+                selected,
+
+              mensaje:
+                texto
+
+            })
+
+          }
+
+        );
+
+      const result =
+        await response.json();
+
+      console.log(
+        "ENVIADO:",
+        result
+      );
+
+      await loadMessages();
+
+    }
+
+    catch (err) {
+
+      console.log(
+        "ERROR:",
+        err
+      );
+
+    }
+
+  }}
+/>
 
       </div>
 

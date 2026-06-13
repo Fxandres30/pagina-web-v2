@@ -15,7 +15,8 @@ export default function ChatWindow({
         flex: 1,
         display: "flex",
         flexDirection: "column",
-        background: "#f5f5f5"
+        background: "#202c33",
+color: "#fff",
       }}
     >
       {/* HEADER */}
