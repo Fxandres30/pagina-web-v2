@@ -37,8 +37,14 @@ export default function MessageBubble({
 
   const mediaSrc =
   media_id
-    ? `/media/${media_id}`
+    ? `https://efaat.com/media/${media_id}`
     : media_url || "";
+
+    console.log({
+  tipo,
+  media_id,
+  media_url
+});
 
   return (
     <div style={containerStyle(fromMe)}>
