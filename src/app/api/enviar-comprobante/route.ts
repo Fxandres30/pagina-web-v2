@@ -96,11 +96,12 @@ const metodo =
 
     }
 
+    // BOT DESACTIVADO TEMPORALMENTE
     // 🔥 ENVIAR AL BOT
     const responseBot =
       await fetch(
 
-        "http://localhost:3001/enviar-comprobante",
+          "https://efaat.com/meta/enviar-comprobante",
 
         {
 
