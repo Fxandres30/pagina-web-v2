@@ -16,6 +16,12 @@ export async function POST(
     const nombre =
       formData.get("nombre") as string;
 
+      const correo =
+  formData.get("correo") as string;
+
+const metodo =
+  formData.get("metodo") as string;
+
     const telefono =
       formData.get("telefono") as string;
 
@@ -109,20 +115,22 @@ export async function POST(
 
           body: JSON.stringify({
 
-            pedidoId:
-              data.id,
+  pedidoId: data.id,
 
-            nombre,
-            telefono,
-            total,
-            cantidad,
+  nombre,
+  telefono,
+  correo,
+  metodo,
 
-            imagen:
-              buffer.toString(
-                "base64"
-              )
+  total,
+  cantidad,
 
-          })
+  imagen:
+    buffer.toString(
+      "base64"
+    )
+
+})
 
         }
 
