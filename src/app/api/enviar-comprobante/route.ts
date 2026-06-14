@@ -99,43 +99,46 @@ const metodo =
     // BOT DESACTIVADO TEMPORALMENTE
     // 🔥 ENVIAR AL BOT
     const responseBot =
-      await fetch(
+  await fetch(
 
-          "https://efaat.com/meta/enviar-comprobante",
+    "https://efaat.com/enviar-comprobante",
 
-        {
+    {
 
-          method: "POST",
+      method: "POST",
 
-          headers: {
+      headers: {
+        "Content-Type":
+          "application/json"
+      },
 
-            "Content-Type":
-              "application/json"
+      body: JSON.stringify({
 
-          },
+        pedidoId: data.id,
 
-          body: JSON.stringify({
+        nombre,
+        telefono,
+        correo,
+        metodo,
 
-  pedidoId: data.id,
+        total,
+        cantidad,
 
-  nombre,
-  telefono,
-  correo,
-  metodo,
+        imagen:
+          buffer.toString(
+            "base64"
+          )
 
-  total,
-  cantidad,
+      })
 
-  imagen:
-    buffer.toString(
-      "base64"
-    )
+    }
 
-})
+  );
 
-        }
-
-      );
+console.log(
+  "STATUS BOT:",
+  responseBot.status
+);
 
     // 🔥 RESPUESTA BOT
     const dataBot =
