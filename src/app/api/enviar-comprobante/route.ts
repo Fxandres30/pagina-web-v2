@@ -150,13 +150,13 @@ console.log(
     );
 
     // 🔥 VALIDAR BOT
-    if (!responseBot.ok) {
+   if (!responseBot.ok) {
 
-      throw new Error(
-        "Bot respondió error"
-      );
+  throw new Error(
+    `Bot respondió ${responseBot.status}: ${dataBot}`
+  );
 
-    }
+}
 
     // 🔥 MARCAR MENSAJE ENVIADO
     await supabase
