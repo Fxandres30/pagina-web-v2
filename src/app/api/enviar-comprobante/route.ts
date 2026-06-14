@@ -122,12 +122,7 @@ const metodo =
         metodo,
 
         total,
-        cantidad,
-
-        imagen:
-          buffer.toString(
-            "base64"
-          )
+        cantidad
 
       })
 
