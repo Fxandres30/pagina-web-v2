@@ -3,9 +3,17 @@
 import { useState } from "react";
 import "./ChatList.css";
 
+type Message = {
+  telefono: string;
+  mensaje?: string;
+  tipo?: string;
+  from_me?: boolean;
+  created_at?: string;
+};
+
 type Props = {
   chats: string[];
-  messages: any[];
+  messages: Message[];
   selected: string;
   onSelect: (telefono: string) => void;
 };
@@ -14,8 +22,10 @@ export default function ChatList({
   chats,
   messages,
   selected,
-  onSelect
+  onSelect,
 }: Props) {
+  const [menuOpen, setMenuOpen] =
+    useState<string | null>(null);
 
   const [search, setSearch] =
     useState("");
@@ -23,9 +33,8 @@ export default function ChatList({
   const safeMessages =
     messages || [];
 
-  const filteredChats =
-    chats.filter((telefono) => {
-
+  const filteredChats = chats.filter(
+    (telefono) => {
       const chatMessages =
         safeMessages.filter(
           (m) =>
@@ -37,32 +46,51 @@ export default function ChatList({
           chatMessages.length - 1
         ];
 
-      const texto =
-        (
-          telefono +
-          " " +
-          (ultimo?.mensaje || "")
-        ).toLowerCase();
+      const texto = (
+        telefono +
+        " " +
+        (ultimo?.mensaje || "")
+      ).toLowerCase();
 
       return texto.includes(
         search.toLowerCase()
       );
+    }
+  );
 
-    });
+  const handleArchive = (telefono: string) => {
+  console.log("Archivar:", telefono);
+
+  // aquí luego llamas tu API
+};
+
+const handleFavorite = (telefono: string) => {
+  console.log("Favorito:", telefono);
+};
+
+const handleMute = (telefono: string) => {
+  console.log("Silenciar:", telefono);
+};
+
+const handleDelete = (telefono: string) => {
+  const ok = confirm(
+    `¿Eliminar conversación ${telefono}?`
+  );
+
+  if (!ok) return;
+
+  console.log("Eliminar:", telefono);
+};
 
   return (
-
     <div className="chat-list">
-
       <div className="chat-list-header">
-
         <h2 className="chat-list-title">
           EFAAT CRM
         </h2>
 
         <div className="chat-list-count">
-          {filteredChats.length}
-          {" "}conversaciones
+          {filteredChats.length} conversaciones
         </div>
 
         <input
@@ -70,19 +98,14 @@ export default function ChatList({
           placeholder="Buscar número o mensaje..."
           value={search}
           onChange={(e) =>
-            setSearch(
-              e.target.value
-            )
+            setSearch(e.target.value)
           }
         />
-
       </div>
 
       <div className="chat-list-body">
-
         {filteredChats.map(
           (telefono) => {
-
             const chatMessages =
               safeMessages.filter(
                 (m) =>
@@ -97,111 +120,150 @@ export default function ChatList({
             let preview =
               ultimo?.mensaje || "";
 
-            if (
-              ultimo?.tipo === "image"
-            ) {
-              preview =
-                "🖼️ Imagen";
+            switch (ultimo?.tipo) {
+              case "image":
+                preview = "🖼️ Imagen";
+                break;
+              case "audio":
+                preview = "🎤 Audio";
+                break;
+              case "video":
+                preview = "🎥 Video";
+                break;
+              case "sticker":
+                preview = "😀 Sticker";
+                break;
+              case "document":
+                preview = "📄 Documento";
+                break;
             }
 
-            if (
-              ultimo?.tipo === "audio"
-            ) {
-              preview =
-                "🎤 Audio";
-            }
-
-            if (
-              ultimo?.tipo === "video"
-            ) {
-              preview =
-                "🎥 Video";
-            }
-
-            if (
-              ultimo?.tipo === "sticker"
-            ) {
-              preview =
-                "😀 Sticker";
-            }
-
-            if (
-              ultimo?.tipo === "document"
-            ) {
-              preview =
-                "📄 Documento";
-            }
-
-            if (
-              ultimo?.from_me
-            ) {
-              preview =
-                "✓ " + preview;
+            if (ultimo?.from_me) {
+              preview = "✓ " + preview;
             }
 
             return (
+  <div
+    key={telefono}
+    className={`chat-item ${
+      selected === telefono
+        ? "active"
+        : ""
+    }`}
+    onClick={() =>
+      onSelect(telefono)
+    }
+  >
+    <div className="chat-avatar">
+      {telefono.slice(-2)}
+    </div>
 
+    <div className="chat-content">
+
+      <div className="chat-top">
+
+        <strong className="chat-phone">
+          {telefono}
+        </strong>
+
+        <div className="chat-right">
+
+          <span className="chat-time">
+            {ultimo?.created_at
+              ? new Date(
+                  ultimo.created_at
+                ).toLocaleTimeString(
+                  [],
+                  {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }
+                )
+              : ""}
+          </span>
+
+          <div className="chat-actions">
+
+            <button
+              className="chat-menu-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+
+                setMenuOpen(
+                  menuOpen === telefono
+                    ? null
+                    : telefono
+                );
+              }}
+            >
+              ⋮
+            </button>
+
+            {menuOpen ===
+              telefono && (
               <div
-                key={telefono}
-                onClick={() =>
-                  onSelect(
-                    telefono
-                  )
-                }
-                className={`chat-item ${
-                  selected === telefono
-                    ? "active"
-                    : ""
-                }`}
-              >
+  className="chat-menu"
+  onClick={(e) =>
+    e.stopPropagation()
+  }
+>
+  <button
+    onClick={() =>
+      handleArchive(telefono)
+    }
+  >
+    📦 Archivar
+  </button>
 
-                <div className="chat-avatar">
-                  {telefono.slice(-2)}
-                </div>
+  <button
+    onClick={() =>
+      handleFavorite(telefono)
+    }
+  >
+    ⭐ Favorito
+  </button>
 
-                <div className="chat-info">
+  <button
+    onClick={() =>
+      handleMute(telefono)
+    }
+  >
+    🔕 Silenciar
+  </button>
 
-                  <div className="chat-top">
+  <button
+    onClick={() =>
+      handleDelete(telefono)
+    }
+  >
+    🗑 Eliminar
+  </button>
+</div>
+            )}
+          </div>
 
-                    <strong className="chat-phone">
-                      {telefono}
-                    </strong>
+        </div>
 
-                    <span className="chat-time">
+      </div>
 
-                      {ultimo?.created_at
-                        ? new Date(
-                            ultimo.created_at
-                          ).toLocaleTimeString(
-                            [],
-                            {
-                              hour: "2-digit",
-                              minute: "2-digit"
-                            }
-                          )
-                        : ""}
+      <div className="chat-bottom">
 
-                    </span>
+        <div className="chat-preview">
+          {preview}
+        </div>
 
-                  </div>
-
-                  <div className="chat-preview">
-                    {preview}
-                  </div>
-
-                </div>
-
-              </div>
-
-            );
-
-          }
-        )}
+        <div className="chat-badge">
+          3
+        </div>
 
       </div>
 
     </div>
-
+  </div>
+);
+          }
+        )}
+      </div>
+    </div>
   );
-
 }

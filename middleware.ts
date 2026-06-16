@@ -5,17 +5,22 @@ export function middleware(
   request: NextRequest
 ) {
 
+  const pathname =
+    request.nextUrl.pathname;
+
+  // permitir login sin autenticación
+  if (
+    pathname === "/admin/login"
+  ) {
+    return NextResponse.next();
+  }
+
   const token =
     request.cookies.get(
       "admin_token"
     );
 
-  if (
-    !token &&
-    request.nextUrl.pathname.startsWith(
-      "/admin"
-    )
-  ) {
+  if (!token) {
 
     return NextResponse.redirect(
       new URL(

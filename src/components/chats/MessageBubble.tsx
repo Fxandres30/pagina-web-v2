@@ -6,6 +6,7 @@ type Props = {
   media_url?: string | null;
   media_id?: string | null;
   fromMe: boolean;
+  estado?: string | null;
 };
 
 export default function MessageBubble({
@@ -14,12 +15,36 @@ export default function MessageBubble({
   media_url,
   media_id,
   fromMe,
+  estado,
 }: Props) {
 
   const mediaSrc =
     media_id
       ? `https://efaat.com/media/${media_id}`
       : media_url || "";
+
+      const getStatusIcon = () => {
+
+  if (!fromMe) return null;
+
+  if (estado === "read") {
+    return (
+      <span className="status-read">
+        ✓✓
+      </span>
+    );
+  }
+
+  if (estado === "delivered") {
+    return "✓✓";
+  }
+
+  if (estado === "sent") {
+    return "✓";
+  }
+
+  return "";
+};
 
   return (
 
@@ -41,9 +66,17 @@ export default function MessageBubble({
 
         {tipo === "text" && (
 
-          <p className="message-text">
-            {mensaje}
-          </p>
+          <div className="message-content">
+
+  <p className="message-text">
+    {mensaje}
+  </p>
+
+  <span className="message-status">
+    {getStatusIcon()}
+  </span>
+
+</div>
 
         )}
 

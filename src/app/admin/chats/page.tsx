@@ -22,20 +22,8 @@ export default function ChatsPage() {
   const [selected, setSelected] = useState("");
   const [mobileChatOpen, setMobileChatOpen] = useState(false);
 
-  const [authorized, setAuthorized] = useState(false);
-  const [checking, setChecking] = useState(true);
-
-  useEffect(() => {
-    const pass = window.prompt("Ingrese la contraseña");
-
-    if (pass === "efaat2025") {
-      setAuthorized(true);
-    } else {
-      window.location.replace("/");
-    }
-
-    setChecking(false);
-  }, []);
+  const [showNewChat, setShowNewChat] = useState(false);
+const [newPhone, setNewPhone] = useState("");
 
   const loadMessages = useCallback(async () => {
     try {
@@ -56,35 +44,41 @@ export default function ChatsPage() {
       console.error(err);
     }
   }, []);
+useEffect(() => {
 
-  useEffect(() => {
-    if (!authorized) return;
+  loadMessages();
 
-    loadMessages();
+  const interval = setInterval(
+    loadMessages,
+    3000
+  );
 
-    const interval = setInterval(loadMessages, 3000);
+  const channel = supabase
+    .channel("messages-realtime")
+    .on(
+      "postgres_changes",
+      {
+        event: "*",
+        schema: "public",
+        table: "messages",
+      },
+      () => {
+        loadMessages();
+      }
+    )
+    .subscribe();
 
-    const channel = supabase
-      .channel("messages-realtime")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "messages",
-        },
-        () => {
-          loadMessages();
-        }
-      )
-      .subscribe();
+  return () => {
 
-    return () => {
-      clearInterval(interval);
-      supabase.removeChannel(channel);
-    };
-  }, [authorized, loadMessages]);
+    clearInterval(interval);
 
+    supabase.removeChannel(
+      channel
+    );
+
+  };
+
+}, [loadMessages]);
   const chats = useMemo(() => {
     const telefonos = [
       ...new Set(messages.map((m) => m.telefono)),
@@ -116,31 +110,16 @@ export default function ChatsPage() {
     (m) => m.telefono === selected
   );
 
-  if (checking) {
-    return <div>Cargando...</div>;
-  }
-
-  if (!authorized) {
-    return null;
-  }
-
   return (
     <div className="crm-container">
+      <button
+  className="floating-new-chat"
+  onClick={() => setShowNewChat(true)}
+>
+  +
+</button>
       <div className={mobileChatOpen ? "hide-mobile" : ""}>
-        <button
-          onClick={() => {
-            const telefono = window.prompt(
-              "Ingrese el número\nEj: 573001234567"
-            );
-
-            if (!telefono) return;
-
-            setSelected(telefono);
-            setMobileChatOpen(true);
-          }}
-        >
-          + Nuevo Chat
-        </button>
+      
 
         <ChatList
           chats={chats}
@@ -216,6 +195,53 @@ export default function ChatsPage() {
           }}
         />
       </div>
+      {showNewChat && (
+  <div className="modal-overlay">
+    <div className="new-chat-modal">
+
+      <h2>Nueva conversación</h2>
+
+      <p>Ingrese el número de WhatsApp</p>
+
+      <input
+        type="text"
+        placeholder="573001234567"
+        value={newPhone}
+        onChange={(e) =>
+          setNewPhone(e.target.value)
+        }
+      />
+
+      <div className="modal-actions">
+        <button
+          className="cancel-btn"
+          onClick={() => {
+            setShowNewChat(false);
+            setNewPhone("");
+          }}
+        >
+          Cancelar
+        </button>
+
+        <button
+          className="create-btn"
+          onClick={() => {
+            if (!newPhone) return;
+
+            setSelected(newPhone);
+            setMobileChatOpen(true);
+
+            setShowNewChat(false);
+            setNewPhone("");
+          }}
+        >
+          Crear Chat
+        </button>
+      </div>
+
+    </div>
+  </div>
+)}
     </div>
   );
 }

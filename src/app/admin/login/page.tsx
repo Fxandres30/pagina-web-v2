@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import "./login.css";
 
 export default function LoginPage() {
 
@@ -10,57 +11,64 @@ export default function LoginPage() {
   const login = () => {
 
     if (
-      password === "MiClave123"
+      password === "efaat2025"
     ) {
 
       document.cookie =
-        "admin_token=ok; path=/";
+        "admin_token=ok; path=/; max-age=86400";
 
       window.location.href =
         "/admin/chats";
 
+      return;
     }
 
-    else {
-
-      alert(
-        "Contraseña incorrecta"
-      );
-
-    }
+    alert(
+      "Contraseña incorrecta"
+    );
 
   };
 
   return (
 
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh"
-      }}
-    >
+    <div className="login-page">
 
-      <div>
+      <div className="login-card">
 
-        <h2>Login Admin</h2>
+        <h1 className="login-title">
+          EFAAT CRM
+        </h1>
+
+        <p className="login-subtitle">
+          Panel administrativo
+        </p>
 
         <input
           type="password"
-          placeholder="Contraseña"
+          className="login-input"
+          placeholder="Ingrese la contraseña"
           value={password}
           onChange={(e) =>
             setPassword(
               e.target.value
             )
           }
+          onKeyDown={(e) => {
+
+            if (
+              e.key === "Enter"
+            ) {
+              login();
+            }
+
+          }}
         />
 
         <button
+          className="login-button"
           onClick={login}
         >
-          Entrar
+          Ingresar
         </button>
 
       </div>
