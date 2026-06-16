@@ -1,28 +1,22 @@
 // app/api/progreso-boletos/route.ts
 
 import { NextResponse } from "next/server";
-
 import { createClient } from "@supabase/supabase-js";
 
-// VARIABLES
 const supabaseUrl =
   process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 
 const supabaseAnonKey =
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
-// CLIENTE
-const supabase = createClient(
-  supabaseUrl,
-  supabaseAnonKey
-);
-
 export async function GET() {
 
   try {
 
-    // VALIDAR VARIABLES
-    if (!supabaseUrl || !supabaseAnonKey) {
+    if (
+      !supabaseUrl ||
+      !supabaseAnonKey
+    ) {
 
       return NextResponse.json(
         {
@@ -36,125 +30,133 @@ export async function GET() {
 
     }
 
-    // TOTAL BOLETOS
-    const {
-      count: totalBoletos,
-      error: totalError,
-    } = await supabase
-      .from("boletos")
-      .select("*", {
-        count: "exact",
-        head: true,
-      });
-
-    if (totalError) {
-
-      return NextResponse.json(
-        {
-          error:
-            "Error contando boletos",
-        },
-        {
-          status: 500,
-        }
+    const supabase =
+      createClient(
+        supabaseUrl,
+        supabaseAnonKey
       );
 
-    }
+    const [
+      totalResult,
+      vendidosResult,
+      disponiblesResult,
+    ] = await Promise.all([
 
-    // BOLETOS VENDIDOS
-    const {
-      count: boletosVendidos,
-      error: vendidosError,
-    } = await supabase
-      .from("boletos")
-      .select("*", {
-        count: "exact",
-        head: true,
-      })
-      .eq("estado", "vendido");
+      supabase
+        .from("boletos")
+        .select("*", {
+          count: "exact",
+          head: true,
+        }),
 
-    if (vendidosError) {
+      supabase
+        .from("boletos")
+        .select("*", {
+          count: "exact",
+          head: true,
+        })
+        .eq(
+          "estado",
+          "vendido"
+        ),
 
-      return NextResponse.json(
-        {
-          error:
-            "Error contando vendidos",
-        },
-        {
-          status: 500,
-        }
-      );
+      supabase
+        .from("boletos")
+        .select("*", {
+          count: "exact",
+          head: true,
+        })
+        .eq(
+          "estado",
+          "disponible"
+        ),
 
-    }
+    ]);
 
-    // BOLETOS DISPONIBLES
-    const {
-      count: boletosDisponibles,
-      error: disponiblesError,
-    } = await supabase
-      .from("boletos")
-      .select("*", {
-        count: "exact",
-        head: true,
-      })
-      .eq("estado", "disponible");
-
-    if (disponiblesError) {
-
-      return NextResponse.json(
-        {
-          error:
-            "Error contando disponibles",
-        },
-        {
-          status: 500,
-        }
-      );
-
-    }
-
-    // CALCULAR %
-    let porcentaje =
-      (
-        (
-          (boletosVendidos ?? 0) /
-          (totalBoletos ?? 1)
-        ) * 100
-      );
-
-    // SI YA NO HAY DISPONIBLES
     if (
-      boletosDisponibles === 0
+      totalResult.error ||
+      vendidosResult.error ||
+      disponiblesResult.error
+    ) {
+
+      console.error(
+        "ERROR PROGRESO:",
+        {
+          total:
+            totalResult.error,
+          vendidos:
+            vendidosResult.error,
+          disponibles:
+            disponiblesResult.error,
+        }
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "Error obteniendo estadísticas",
+        },
+        {
+          status: 500,
+        }
+      );
+
+    }
+
+    const totalBoletos =
+      totalResult.count ?? 0;
+
+    const boletosVendidos =
+      vendidosResult.count ?? 0;
+
+    const boletosDisponibles =
+      disponiblesResult.count ?? 0;
+
+    let porcentaje = 0;
+
+    if (
+      totalBoletos > 0
+    ) {
+
+      porcentaje =
+        Number(
+          (
+            (
+              boletosVendidos /
+              totalBoletos
+            ) * 100
+          ).toFixed(2)
+        );
+
+    }
+
+    if (
+      boletosDisponibles === 0 &&
+      totalBoletos > 0
     ) {
 
       porcentaje = 100;
 
     }
 
-    porcentaje =
-      Number(
-        porcentaje.toFixed(2)
-      );
-
-    // RESPUESTA
     return NextResponse.json({
 
       porcentaje,
 
-      boletosVendidos:
-        boletosVendidos ?? 0,
+      boletosVendidos,
 
-      boletosDisponibles:
-        boletosDisponibles ?? 0,
+      boletosDisponibles,
 
-      totalBoletos:
-        totalBoletos ?? 0,
+      totalBoletos,
 
     });
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "ERROR API PROGRESO:",
+      error
+    );
 
     return NextResponse.json(
       {
