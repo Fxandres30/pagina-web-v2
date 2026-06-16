@@ -112,24 +112,31 @@ useEffect(() => {
 
   return (
     <div className="crm-container">
-      <button
-  className="floating-new-chat"
-  onClick={() => setShowNewChat(true)}
->
-  +
-</button>
+      {!mobileChatOpen && (
+  <button
+    className="floating-new-chat"
+    onClick={() =>
+      setShowNewChat(true)
+    }
+  >
+    +
+  </button>
+)}
       <div className={mobileChatOpen ? "hide-mobile" : ""}>
       
 
-        <ChatList
-          chats={chats}
-          messages={messages}
-          selected={selected}
-          onSelect={(telefono: string) => {
-            setSelected(telefono);
-            setMobileChatOpen(true);
-          }}
-        />
+       <ChatList
+  chats={chats}
+  messages={messages}
+  selected={selected}
+  onSelect={(telefono) => {
+    setSelected(telefono);
+    setMobileChatOpen(true);
+  }}
+  onNewChat={() =>
+    setShowNewChat(true)
+  }
+/>
       </div>
 
       <div

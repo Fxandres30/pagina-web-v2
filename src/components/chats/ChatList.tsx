@@ -16,6 +16,7 @@ type Props = {
   messages: Message[];
   selected: string;
   onSelect: (telefono: string) => void;
+  onNewChat: () => void;
 };
 
 export default function ChatList({
@@ -23,7 +24,9 @@ export default function ChatList({
   messages,
   selected,
   onSelect,
+  onNewChat,
 }: Props) {
+
   const [menuOpen, setMenuOpen] =
     useState<string | null>(null);
 
@@ -88,6 +91,12 @@ const handleDelete = (telefono: string) => {
         <h2 className="chat-list-title">
           EFAAT CRM
         </h2>
+        <button
+  className="new-chat-btn"
+  onClick={onNewChat}
+>
+  + Nueva conversación
+</button>
 
         <div className="chat-list-count">
           {filteredChats.length} conversaciones

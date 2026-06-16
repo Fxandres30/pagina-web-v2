@@ -15,7 +15,7 @@ export default function LoginPage() {
     ) {
 
       document.cookie =
-        "admin_token=ok; path=/; max-age=86400";
+  "admin_token=ok; path=/; max-age=14400";
 
       window.location.href =
         "/admin/chats";
