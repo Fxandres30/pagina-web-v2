@@ -85,6 +85,7 @@ export default function ChatWindow({
   media_id={msg.media_id}
   fromMe={msg.from_me}
   estado={msg.estado}
+  createdAt={msg.created_at}
 />
 
         ))}

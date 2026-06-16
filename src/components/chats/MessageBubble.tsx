@@ -7,6 +7,7 @@ type Props = {
   media_id?: string | null;
   fromMe: boolean;
   estado?: string | null;
+  createdAt?: string;
 };
 
 export default function MessageBubble({
@@ -16,6 +17,7 @@ export default function MessageBubble({
   media_id,
   fromMe,
   estado,
+  createdAt,
 }: Props) {
 
   const mediaSrc =
@@ -23,28 +25,41 @@ export default function MessageBubble({
       ? `https://efaat.com/media/${media_id}`
       : media_url || "";
 
-      const getStatusIcon = () => {
+  const formattedTime =
+    createdAt
+      ? new Date(
+          createdAt
+        ).toLocaleTimeString(
+          "es-CO",
+          {
+            hour: "2-digit",
+            minute: "2-digit",
+          }
+        )
+      : "";
 
-  if (!fromMe) return null;
+  const getStatusIcon = () => {
 
-  if (estado === "read") {
-    return (
-      <span className="status-read">
-        ✓✓
-      </span>
-    );
-  }
+    if (!fromMe) return null;
 
-  if (estado === "delivered") {
-    return "✓✓";
-  }
+    if (estado === "read") {
+      return (
+        <span className="status-read">
+          ✓✓
+        </span>
+      );
+    }
 
-  if (estado === "sent") {
-    return "✓";
-  }
+    if (estado === "delivered") {
+      return "✓✓";
+    }
 
-  return "";
-};
+    if (estado === "sent") {
+      return "✓";
+    }
+
+    return "";
+  };
 
   return (
 
@@ -68,15 +83,23 @@ export default function MessageBubble({
 
           <div className="message-content">
 
-  <p className="message-text">
-    {mensaje}
-  </p>
+            <p className="message-text">
+              {mensaje}
+            </p>
 
-  <span className="message-status">
-    {getStatusIcon()}
-  </span>
+            <div className="message-meta">
 
-</div>
+              <span className="message-time">
+                {formattedTime}
+              </span>
+
+              <span className="message-status">
+                {getStatusIcon()}
+              </span>
+
+            </div>
+
+          </div>
 
         )}
 
@@ -92,11 +115,9 @@ export default function MessageBubble({
             />
 
             {mensaje && (
-
               <div className="media-caption">
                 {mensaje}
               </div>
-
             )}
 
           </div>
@@ -135,11 +156,9 @@ export default function MessageBubble({
             />
 
             {mensaje && (
-
               <div className="media-caption">
                 {mensaje}
               </div>
-
             )}
 
           </div>
