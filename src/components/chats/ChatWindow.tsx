@@ -3,20 +3,29 @@
 import "./ChatWindow.css";
 import { useEffect, useRef, useState } from "react";
 import MessageBubble from "./MessageBubble";
+import ReactionBubble from "./ReactionBubble";
 
 type Props = {
   messages: any[];
   selected?: string;
+  cliente?: any;
   onBack?: () => void;
 };
 
 export default function ChatWindow({
   messages,
   selected,
+  cliente,
   onBack,
 }: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const firstLoad = useRef(true);
+
+  const [selectedIndex, setSelectedIndex] =
+    useState<number | null>(null);
+
+    const [showContact, setShowContact] =
+  useState(false);
 
   const images = messages
     .filter((m) => m.tipo === "image")
@@ -26,9 +35,6 @@ export default function ChatWindow({
         : m.media_url
     )
     .filter(Boolean);
-
-  const [selectedIndex, setSelectedIndex] =
-    useState<number | null>(null);
 
   useEffect(() => {
     if (firstLoad.current) {
@@ -46,7 +52,7 @@ export default function ChatWindow({
     const lastMessage =
       messages[messages.length - 1];
 
-    if (lastMessage.from_me === false) {
+    if (!lastMessage.from_me) {
       bottomRef.current?.scrollIntoView({
         behavior: "smooth",
       });
@@ -56,6 +62,7 @@ export default function ChatWindow({
   return (
     <>
       <div className="chat-window">
+        {/* HEADER */}
         <div className="chat-header">
           <button
             className="back-button"
@@ -72,16 +79,30 @@ export default function ChatWindow({
 
           <div className="chat-header-info">
             <div className="chat-header-phone">
-              {selected ||
+              {cliente?.nombre ||
+                selected ||
                 "Selecciona un chat"}
             </div>
 
             <div className="chat-header-status">
-              WhatsApp Business
+              {selected}
+              {cliente?.empresa &&
+                ` • ${cliente.empresa}`}
             </div>
           </div>
+
+          <button
+  className="contact-info-btn"
+  title="Información del cliente"
+  onClick={() =>
+    setShowContact(true)
+  }
+>
+  ℹ️
+</button>
         </div>
 
+        {/* MENSAJES */}
         <div className="chat-messages">
           {messages.length === 0 && (
             <div className="empty-chat">
@@ -90,37 +111,52 @@ export default function ChatWindow({
           )}
 
           {messages.map((msg) => {
-            const mediaSrc =
-              msg.media_id
-                ? `https://efaat.com/media/${msg.media_id}`
-                : msg.media_url || "";
 
-            return (
-              <MessageBubble
-                key={msg.id}
-                mensaje={msg.mensaje}
-                tipo={msg.tipo}
-                media_url={msg.media_url}
-                media_id={msg.media_id}
-                fromMe={msg.from_me}
-                estado={msg.estado}
-                createdAt={msg.created_at}
-                onImageClick={() => {
-                  const index =
-                    images.indexOf(mediaSrc);
+  if (msg.tipo === "reaction") {
 
-                  if (index >= 0) {
-                    setSelectedIndex(index);
-                  }
-                }}
-              />
-            );
-          })}
+    return (
+      <ReactionBubble
+        key={msg.id}
+        emoji={msg.emoji}
+        fromMe={msg.from_me}
+      />
+    );
+
+  }
+
+  const mediaSrc =
+    msg.media_id
+      ? `https://efaat.com/media/${msg.media_id}`
+      : msg.media_url || "";
+
+  return (
+    <MessageBubble
+      key={msg.id}
+      mensaje={msg.mensaje}
+      tipo={msg.tipo}
+      media_url={msg.media_url}
+      media_id={msg.media_id}
+      fromMe={msg.from_me}
+      estado={msg.estado}
+      createdAt={msg.created_at}
+      onImageClick={() => {
+        const index =
+          images.indexOf(mediaSrc);
+
+        if (index >= 0) {
+          setSelectedIndex(index);
+        }
+      }}
+    />
+  );
+
+})}
 
           <div ref={bottomRef} />
         </div>
       </div>
 
+      {/* VISOR DE IMÁGENES */}
       {selectedIndex !== null && (
         <div
           className="image-viewer"
@@ -149,6 +185,7 @@ export default function ChatWindow({
             onClick={(e) =>
               e.stopPropagation()
             }
+            
           />
 
           <button
@@ -180,6 +217,63 @@ export default function ChatWindow({
           </div>
         </div>
       )}
+      {showContact && (
+
+  <div
+    className="contact-modal-overlay"
+    onClick={() =>
+      setShowContact(false)
+    }
+  >
+
+    <div
+      className="contact-modal"
+      onClick={(e) =>
+        e.stopPropagation()
+      }
+    >
+
+      <button
+        className="contact-close"
+        onClick={() =>
+          setShowContact(false)
+        }
+      >
+        ✕
+      </button>
+
+      <div className="contact-avatar-large">
+        {selected?.slice(-2)}
+      </div>
+
+      <h2>
+        {cliente?.nombre ||
+          "Sin nombre"}
+      </h2>
+
+      <p>{selected}</p>
+
+      <div className="contact-info-row">
+        📧 {cliente?.email || "-"}
+      </div>
+
+      <div className="contact-info-row">
+        🏢 {cliente?.empresa || "-"}
+      </div>
+
+      <div className="contact-info-row">
+        📍 {cliente?.ciudad || "-"}
+      </div>
+
+      <div className="contact-info-row">
+        📝 {cliente?.notas || "-"}
+      </div>
+
+    </div>
+
+  </div>
+
+)}
     </>
   );
 }

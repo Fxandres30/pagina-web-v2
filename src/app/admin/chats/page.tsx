@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabase";
 import ChatList from "@/components/chats/ChatList";
 import ChatWindow from "@/components/chats/ChatWindow";
 import MessageInput from "@/components/chats/MessageInput";
+import ContactPanel from "@/components/chats/ContactPanel";
 
 interface Message {
   id?: string;
@@ -24,6 +25,9 @@ export default function ChatsPage() {
 
   const [showNewChat, setShowNewChat] = useState(false);
 const [newPhone, setNewPhone] = useState("");
+
+const [cliente, setCliente] =
+  useState<any>(null);
 
   const loadMessages = useCallback(async () => {
     try {
@@ -44,6 +48,28 @@ const [newPhone, setNewPhone] = useState("");
       console.error(err);
     }
   }, []);
+
+  useEffect(() => {
+
+  if (!selected) return;
+
+  const loadCliente = async () => {
+
+    const { data } =
+      await supabase
+        .from("clientes")
+        .select("*")
+        .eq("telefono", selected)
+        .single();
+
+    setCliente(data);
+
+  };
+
+  loadCliente();
+
+}, [selected]);
+
 useEffect(() => {
 
   loadMessages();
@@ -175,11 +201,16 @@ useEffect(() => {
           mobileChatOpen ? "show-mobile" : ""
         }`}
       >
-        <ChatWindow
-          messages={currentMessages}
-          selected={selected}
-          onBack={() => setMobileChatOpen(false)}
-        />
+       <ChatWindow
+  messages={currentMessages}
+  selected={selected}
+  cliente={cliente}
+  onBack={() =>
+    setMobileChatOpen(false)
+  }
+/>
+
+  
 
         <MessageInput
           onSend={async (texto, archivo) => {

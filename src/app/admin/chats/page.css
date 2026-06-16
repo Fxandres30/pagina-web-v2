@@ -227,3 +227,22 @@
   }
 
 }
+
+.contact-info-btn {
+  margin-left: auto;
+
+  background: transparent;
+  border: none;
+
+  color: #aebac1;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  padding: 8px;
+}
+
+.contact-info-btn:hover {
+  color: white;
+}

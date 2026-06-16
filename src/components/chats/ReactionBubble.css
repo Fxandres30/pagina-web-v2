@@ -1,0 +1,19 @@
+.reaction-container {
+  display: flex;
+  margin: 6px 12px;
+}
+
+.reaction-right {
+  justify-content: flex-end;
+}
+
+.reaction-left {
+  justify-content: flex-start;
+}
+
+.reaction-bubble {
+  background: #1f2c34;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 20px;
+}
