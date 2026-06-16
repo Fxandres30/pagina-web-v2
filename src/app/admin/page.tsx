@@ -2,7 +2,7 @@
 
 import {
   useEffect,
-  useState
+  useState,
 } from "react";
 
 import { supabase }
@@ -25,10 +25,8 @@ interface Message {
 export default function AdminPage() {
 
   const [
-
     mensajes,
-    setMensajes
-
+    setMensajes,
   ] = useState<Message[]>([]);
 
   useEffect(() => {
@@ -39,26 +37,42 @@ export default function AdminPage() {
 
   async function obtenerMensajes() {
 
-    const {
+    try {
 
-      data
+      const {
+        data,
+        error,
+      } = await supabase
+        .from("messages")
+        .select("*")
+        .order(
+          "created_at",
+          {
+            ascending: false,
+          }
+        );
 
-    } = await supabase
+      if (error) {
 
-      .from("messages")
+        console.error(
+          error
+        );
 
-      .select("*")
+        return;
 
-      .order(
-        "created_at",
-        {
-          ascending: true
-        }
+      }
+
+      setMensajes(
+        data || []
       );
 
-    setMensajes(
-      data || []
-    );
+    } catch (err) {
+
+      console.error(
+        err
+      );
+
+    }
 
   }
 
@@ -66,7 +80,10 @@ export default function AdminPage() {
 
     <div
       style={{
-        padding: 20
+        padding: "20px",
+        minHeight: "100vh",
+        background: "#111b21",
+        color: "white",
       }}
     >
 
@@ -74,43 +91,82 @@ export default function AdminPage() {
         WhatsApp Inbox
       </h1>
 
+      <p>
+        {
+          mensajes.length
+        } mensajes
+      </p>
+
       {
 
         mensajes.map(
-
           (msg) => (
 
             <div
-
               key={msg.id}
-
               style={{
 
-                marginBottom: 12,
-
-                padding: 12,
+                background:
+                  "#202c33",
 
                 border:
-                  "1px solid #ccc",
+                  "1px solid #2a3942",
 
-                borderRadius: 10
+                borderRadius:
+                  "12px",
+
+                padding:
+                  "14px",
+
+                marginBottom:
+                  "12px",
 
               }}
-
             >
 
-              <strong>
-                {msg.telefono}
-              </strong>
+              <div
+                style={{
+                  fontWeight:
+                    "bold",
+                  marginBottom:
+                    "6px",
+                }}
+              >
+                {
+                  msg.telefono
+                }
+              </div>
 
-              <p>
-                {msg.mensaje}
-              </p>
+              <div>
+                {
+                  msg.mensaje
+                }
+              </div>
+
+              <div
+                style={{
+                  marginTop:
+                    "8px",
+
+                  fontSize:
+                    "12px",
+
+                  color:
+                    "#8696a0",
+                }}
+              >
+                {
+                  new Date(
+                    msg.created_at
+                  ).toLocaleString(
+                    "es-CO"
+                  )
+                }
+              </div>
 
             </div>
 
           )
-
         )
 
       }
