@@ -8,6 +8,7 @@ type Props = {
   fromMe: boolean;
   estado?: string | null;
   createdAt?: string;
+  onImageClick?: (src: string) => void;
 };
 
 export default function MessageBubble({
@@ -18,6 +19,7 @@ export default function MessageBubble({
   fromMe,
   estado,
   createdAt,
+  onImageClick,
 }: Props) {
 
   const mediaSrc =
@@ -108,11 +110,14 @@ export default function MessageBubble({
           <div className="media-wrapper">
 
             <img
-              src={mediaSrc}
-              alt="Imagen"
-              className="message-image"
-              loading="lazy"
-            />
+  src={mediaSrc}
+  alt="Imagen"
+  className="message-image"
+  loading="lazy"
+  onClick={() =>
+    onImageClick?.(mediaSrc)
+  }
+/>
 
             {mensaje && (
               <div className="media-caption">

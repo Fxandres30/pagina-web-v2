@@ -16,12 +16,25 @@
 /* BURBUJA */
 .message-bubble {
   position: relative;
-  max-width: 65%;
+
+  max-width: min(65%, 520px);
+
   border-radius: 10px;
+
   padding: 6px 8px;
+
   word-wrap: break-word;
   overflow-wrap: break-word;
-  animation: fadeIn 0.2s ease;
+
+  animation: fadeIn .18s ease;
+
+  box-shadow:
+    0 1px 0 rgba(0,0,0,.08),
+    0 1px 2px rgba(0,0,0,.12);
+}
+
+.message-bubble:hover {
+  filter: brightness(1.02);
 }
 
 .message-me {
@@ -43,12 +56,17 @@
 
 .message-text {
   margin: 0;
+
   font-size: 14px;
-  line-height: 1.4;
+
+  line-height: 1.45;
+
   white-space: pre-wrap;
+
+  overflow-wrap: anywhere;
+
   word-break: break-word;
 }
-
 /* HORA + ESTADO */
 
 .message-meta {
@@ -87,44 +105,86 @@
 }
 
 .message-image {
-  max-width: 320px;
-  max-height: 350px;
-  border-radius: 8px;
+  display: block;
+
+  max-width: 340px;
+  max-height: 420px;
+
+  width: auto;
+  height: auto;
+
+  border-radius: 10px;
+
   object-fit: cover;
+
+  cursor: pointer;
+
+  transition:
+    transform .15s ease,
+    opacity .15s ease;
+}
+
+.message-image:hover {
+  opacity: .96;
+  transform: scale(1.01);
 }
 
 .media-caption {
-  margin-top: 6px;
+  margin-top: 8px;
+
   font-size: 14px;
+  line-height: 1.4;
+
+  white-space: pre-wrap;
 }
 
 /* VIDEO */
 .message-video {
-  max-width: 320px;
-  border-radius: 8px;
+  display: block;
+
+  max-width: 340px;
+  max-height: 420px;
+
+  border-radius: 10px;
+
+  background: #000;
 }
 
-/* AUDIO */
 .message-audio {
-  width: 280px;
+  width: 320px;
+  max-width: 100%;
 }
 
 /* STICKERS */
 .message-sticker {
-  width: 140px;
+  width: 160px;
   height: auto;
+
+  user-select: none;
 }
 
 /* DOCUMENTOS */
 .message-document {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  color: inherit;
+  gap: 10px;
+
+  min-width: 240px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  background: rgba(255,255,255,.08);
+
   text-decoration: none;
-  padding: 8px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.08);
+  color: inherit;
+
+  transition: background .15s ease;
+}
+
+.message-document:hover {
+  background: rgba(255,255,255,.12);
 }
 
 .message-document:hover {
@@ -141,4 +201,8 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.message-image {
+  cursor: pointer;
 }
