@@ -8,6 +8,8 @@ type Message = {
   mensaje?: string;
   tipo?: string;
   from_me?: boolean;
+  estado?: string;
+  leido?: boolean;
   created_at?: string;
 };
 
@@ -39,15 +41,15 @@ export default function ChatList({
   const filteredChats = chats.filter(
     (telefono) => {
       const chatMessages =
-        safeMessages.filter(
-          (m) =>
-            m.telefono === telefono
-        );
+  safeMessages.filter(
+    (m) =>
+      m.telefono === telefono
+  );
 
-      const ultimo =
-        chatMessages[
-          chatMessages.length - 1
-        ];
+const ultimo =
+  chatMessages[
+    chatMessages.length - 1
+  ];
 
       const texto = (
         telefono +
@@ -116,18 +118,25 @@ const handleDelete = (telefono: string) => {
         {filteredChats.map(
           (telefono) => {
             const chatMessages =
-              safeMessages.filter(
-                (m) =>
-                  m.telefono === telefono
-              );
+  safeMessages.filter(
+    (m) =>
+      m.telefono === telefono
+  );
 
-            const ultimo =
-              chatMessages[
-                chatMessages.length - 1
-              ];
+const ultimo =
+  chatMessages[
+    chatMessages.length - 1
+  ];
 
-            let preview =
-              ultimo?.mensaje || "";
+const unreadCount =
+  chatMessages.filter(
+    (m) =>
+      !m.from_me &&
+      !m.leido
+  ).length;
+
+let preview =
+  ultimo?.mensaje || "";
 
             switch (ultimo?.tipo) {
               case "image":
@@ -148,7 +157,7 @@ const handleDelete = (telefono: string) => {
             }
 
             if (ultimo?.from_me) {
-              preview = "✓ " + preview;
+              preview = "" + preview;
             }
 
             return (
@@ -255,17 +264,44 @@ const handleDelete = (telefono: string) => {
 
       </div>
 
-      <div className="chat-bottom">
+    <div className="chat-bottom">
 
-        <div className="chat-preview">
-          {preview}
-        </div>
+  <div className="chat-preview">
+    {preview}
+  </div>
 
-        <div className="chat-badge">
-          3
-        </div>
+  {unreadCount > 0 ? (
 
+    <div className="chat-badge">
+      {unreadCount}
+    </div>
+
+  ) : (
+
+    ultimo?.from_me && (
+      <div
+        className={`chat-status ${
+          ultimo.estado === "read"
+            ? "read"
+            : ""
+        }`}
+      >
+        {ultimo.estado === "sent" &&
+          "✓"}
+
+        {ultimo.estado ===
+          "delivered" &&
+          "✓✓"}
+
+        {ultimo.estado ===
+          "read" &&
+          "✓✓"}
       </div>
+    )
+
+  )}
+
+</div>
 
     </div>
   </div>

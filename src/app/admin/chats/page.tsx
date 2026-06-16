@@ -100,6 +100,28 @@ useEffect(() => {
     });
   }, [messages]);
 
+  const marcarComoLeido = async (
+  telefono: string
+) => {
+  try {
+
+    await supabase
+      .from("messages")
+      .update({
+        leido: true,
+      })
+      .eq("telefono", telefono)
+      .eq("from_me", false)
+      .eq("leido", false);
+
+  } catch (err) {
+
+    console.error(err);
+
+  }
+};
+
+
   useEffect(() => {
     if (chats.length > 0 && !selected) {
       setSelected(chats[0]);
@@ -129,10 +151,19 @@ useEffect(() => {
   chats={chats}
   messages={messages}
   selected={selected}
-  onSelect={(telefono) => {
-    setSelected(telefono);
-    setMobileChatOpen(true);
-  }}
+  onSelect={async (telefono) => {
+
+  setSelected(telefono);
+
+  setMobileChatOpen(true);
+
+  await marcarComoLeido(
+    telefono
+  );
+
+  await loadMessages();
+
+}}
   onNewChat={() =>
     setShowNewChat(true)
   }
