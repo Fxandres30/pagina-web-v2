@@ -105,7 +105,7 @@ export default function MessageBubble({
 
         )}
 
-        {tipo === "image" && media_id && (
+        {tipo === "image" && (media_url || media_id) && (
 
           <div className="media-wrapper">
 
