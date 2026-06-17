@@ -16,14 +16,24 @@ export async function enviarComprobante(
   );
 
   formData.append(
-    "total",
-    data.total
+    "correo",
+    data.correo
   );
 
   formData.append(
-  "cantidad",
-  data.cantidad
-);
+    "metodo",
+    data.metodo
+  );
+
+  formData.append(
+    "total",
+    String(data.total)
+  );
+
+  formData.append(
+    "cantidad",
+    String(data.cantidad)
+  );
 
   formData.append(
     "comprobante",

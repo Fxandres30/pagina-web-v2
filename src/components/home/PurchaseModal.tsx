@@ -11,6 +11,7 @@ import { validarCompra } from "@/services/validarCompra";
 import PurchaseForm from "./purchase/PurchaseForm";
 import PaymentInfo from "./purchase/PaymentInfo";
 import ReceiptUpload from "./purchase/ReceiptUpload";
+import PurchaseConfirmModal from "./purchase/PurchaseConfirmModal";
 
 import {
   X,
@@ -67,30 +68,31 @@ export default function PurchaseModal({
       return alert(error);
     }
 
-    try {
+  try {
 
-      await enviarComprobante({
+  await enviarComprobante({
 
-        nombre: name,
-        telefono: phone,
-        correo: email,
-        metodo: method,
+    nombre: name,
+    telefono: phone,
+    correo: email,
+    metodo: method,
 
-        total,
+    total,
+    cantidad: amount,
 
-        cantidad: amount,
+    comprobante: receipt,
 
-        comprobante: receipt,
+  });
 
-      });
+  alert(
+    "✅ Comprobante enviado"
+  );
 
-      alert(
-        "✅ Comprobante enviado"
-      );
+  setStep(1);
 
-      onClose();
+  onClose();
 
-    }
+}
 
     catch (error) {
 
@@ -137,11 +139,17 @@ export default function PurchaseModal({
       <div className="purchase-modal">
 
         <button
-          className="purchase-close"
-          onClick={onClose}
-        >
-          <X size={20} />
-        </button>
+  className="purchase-close"
+  onClick={() => {
+
+    setStep(1);
+
+    onClose();
+
+  }}
+>
+  <X size={20} />
+</button>
 
         <h2 className="purchase-title">
 
@@ -284,93 +292,26 @@ export default function PurchaseModal({
           </>
 
         )}
+<PurchaseConfirmModal
 
-        {step === 2 && (
+  open={step === 2}
 
-          <div className="purchase-final-step">
+  onBack={() =>
+    setStep(1)
+  }
 
-            <h3>
-              📋 Verifica tu compra
-            </h3>
-
-            <div className="purchase-final-info">
-
-              <p>
-                👤 {name}
-              </p>
-
-              <p>
-                💬 {phone}
-              </p>
-
-              <p>
-                🎟️ {amount} números
-              </p>
-
-              <p>
-                💰 $
-                {total.toLocaleString(
-                  "es-CO"
-                )}
-              </p>
-
-              <p>
-                🏦 {method}
-              </p>
-
-              {receipt && (
-
-  <img
-
-    src={URL.createObjectURL(
-      receipt
-    )}
-
-    alt="Comprobante"
-
-    className="purchase-proof-preview"
-
-  />
-
-)}
-
-            </div>
-
-            <div className="purchase-final-actions">
-
-              <button
-
-                type="button"
-
-                onClick={() =>
-                  setStep(1)
-                }
-
-              >
-
-                Editar
-
-              </button>
-
-              <button
-
-                type="button"
-
-                onClick={
-                  handleEnviarComprobante
-                }
-
-              >
-
-                Confirmar compra
-
-              </button>
-
-            </div>
-
-          </div>
-
-        )}
+  onConfirm={
+    handleEnviarComprobante
+  }
+  name={name}
+  email={email}
+  phone={phone}
+  amount={amount}
+  total={total}
+  method={method}
+  receipt={receipt}
+/>
+        
 
       </div>
 
