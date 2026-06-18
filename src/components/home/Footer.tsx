@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="social-icons">
 
   <Link
-    href="https://wa.me/573014123951"
+    href="https://wa.me/573009760087"
     className="icon whatsapp"
     target="_blank"
   >
