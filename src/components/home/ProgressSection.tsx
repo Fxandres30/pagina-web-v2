@@ -15,16 +15,20 @@ export default function ProgressSection() {
     try {
 
       const response = await fetch(
-        "/api/progreso-boletos"
+        "/api/progreso-boletos",
+        {
+          cache: "no-store"
+        }
       );
 
-      const data = await response.json();
+      const data =
+        await response.json();
 
-      let porcentaje = parseFloat(
-        data.porcentaje
-      );
+      let porcentaje =
+        parseFloat(
+          data.porcentaje
+        );
 
-      // SI YA NO HAY DISPONIBLES
       if (
         porcentaje >= 99.10 &&
         data.boletosDisponibles === 0
@@ -40,7 +44,9 @@ export default function ProgressSection() {
           ) / 100;
       }
 
-      setProgreso(porcentaje);
+      setProgreso(
+        porcentaje
+      );
 
     } catch (error) {
 
@@ -51,9 +57,20 @@ export default function ProgressSection() {
     }
   };
 
-  // 🔥 SOLO UNA VEZ
-
+  // Primera carga
   fetchData();
+
+  // Actualizar cada 15 segundos
+  const interval =
+    setInterval(
+      fetchData,
+      15000
+    );
+
+  return () =>
+    clearInterval(
+      interval
+    );
 
 }, []);
    
