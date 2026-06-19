@@ -2,22 +2,6 @@
 
 import "./page.css";
 
-import { useEffect, useMemo, useState, useCallback } from "react";
-import { supabase } from "@/lib/supabase";
-
-import ChatList from "@/components/chats/ChatList";
-import ChatWindow from "@/components/chats/ChatWindow";
-import MessageInput from "@/components/chats/MessageInput";
-import ContactPanel from "@/components/chats/ContactPanel";
-
-interface Message {
-  id?: string;
-  telefono: string;
-  mensaje?: string;
-  created_at: string;
-  [key: string]: any;
-}
-
 export default function ChatsPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [selected, setSelected] = useState("");
